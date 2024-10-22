@@ -1,13 +1,14 @@
-import { login, signup } from "./actios";
+import { signup } from "./actios";
 
-export default function LoginPage() {
+export default function SignUpPage() {
   return (
     <form>
       <label htmlFor="email">Email:</label>
       <input id="email" name="email" type="email" required />
       <label htmlFor="password">Password:</label>
       <input id="password" name="password" type="password" required />
-      <button formAction={login}>Log in</button>
+      <label htmlFor="nickname">nickname:</label>
+      <input id="nickname" name="nickname" type="nickname" required />
       <button formAction={signup}>Sign up</button>
     </form>
   );
