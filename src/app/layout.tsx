@@ -1,4 +1,3 @@
-import MainLayout from "@/components/layouts/main-layout";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -17,9 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <MainLayout>{children}</MainLayout>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
