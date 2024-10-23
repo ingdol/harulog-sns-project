@@ -1,4 +1,4 @@
-import { CloudIcon } from "@heroicons/react/24/solid";
+import Logo from "@/components/Logo";
 import Link from "next/link";
 
 export default async function AuthLayout({
@@ -8,11 +8,8 @@ export default async function AuthLayout({
 }>) {
   return (
     <div className="relative h-screen flex flex-wrap w-full">
-      <div className="absolute flex items-center gap-1 p-4">
-        <CloudIcon className="w-6 h-6 text-cyan-600" />
-        <span className="font-poppins text-xl font-semibold text-cyan-600">
-          HaruLog
-        </span>
+      <div className="absolute flex items-center gap-1 p-6">
+        <Logo />
       </div>
       <div className="flex lg:flex-row w-full h-full">
         <div className="relative hidden lg:flex justify-center h-full w-1/2 px-6 lg:px-20">
@@ -46,7 +43,7 @@ export default async function AuthLayout({
             </div>
           </div>
           <img
-            src="/login-illustration.svg"
+            src="/images/login-illustration.svg"
             alt="Login illustration"
             className="absolute right-0 bottom-5 lg:w-2/5 md:w-1/3"
           />
