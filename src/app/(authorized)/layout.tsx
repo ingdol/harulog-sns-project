@@ -1,18 +1,18 @@
-import Sidebar from "../../components/Sidebar";
-
-export default async function MainLayout({
+export default async function Layout({
+  sidebar,
   children,
 }: Readonly<{
+  sidebar: React.ReactNode;
   children: React.ReactNode;
 }>) {
   return (
     <div className="h-screen flex">
-      <div className="w-[14%] md:w-[8%] lg:w-[16%] xl:w-[14%] p-6">
-        <Sidebar />
-      </div>
-      <div className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%] bg-[#F7F8FA] overflow-scroll flex flex-col">
+      <aside className="w-[20%] md:w-[9%] lg:w-[22%] xl:w-[17%] p-6 border-r border-Slate-50 max-w-80">
+        {sidebar}
+      </aside>
+      <main className="flex-grow overflow-scroll overflow-x-hidden px-10 py-6">
         {children}
-      </div>
+      </main>
     </div>
   );
 }
