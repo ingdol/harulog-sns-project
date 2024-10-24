@@ -11,7 +11,7 @@ export default async function Layout({
         {sidebar}
       </aside>
       <main className="flex-grow overflow-scroll overflow-x-hidden px-10 py-6">
-        {children}
+        <div className="flex justify-center">{children}</div>
       </main>
     </div>
   );
