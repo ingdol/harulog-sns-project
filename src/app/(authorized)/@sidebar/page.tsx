@@ -78,10 +78,13 @@ export default function Sidebar() {
             </Link>
           ))}
 
-          <button className="hidden lg:flex mt-4 items-center w-fit gap-4 text-white bg-cyan-600 lg:py-2 lg:px-4 rounded-md hover:bg-cyan-700 transition-colors">
+          <Link
+            href={"/post/create"}
+            className="hidden lg:flex mt-4 items-center w-fit gap-4 text-white bg-cyan-600 lg:py-2 lg:px-4 rounded-md hover:bg-cyan-700 transition-colors"
+          >
             <PlusIcon className="w-5 h-5" />
             <span>하루 기록</span>
-          </button>
+          </Link>
 
           <Link
             href="/"
