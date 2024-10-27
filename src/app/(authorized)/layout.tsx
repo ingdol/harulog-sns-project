@@ -1,9 +1,11 @@
-export default async function Layout({
+export default async function AuthorizedLayout({
   sidebar,
   children,
+  modal,
 }: Readonly<{
   sidebar: React.ReactNode;
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <div className="h-screen flex">
@@ -13,6 +15,7 @@ export default async function Layout({
       <main className="flex-grow overflow-scroll overflow-x-hidden px-10 py-6">
         <div className="flex justify-center">{children}</div>
       </main>
+      {modal}
     </div>
   );
 }
