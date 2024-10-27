@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function AuthLayout({
@@ -42,9 +43,11 @@ export default async function AuthLayout({
               </p>
             </div>
           </div>
-          <img
+          <Image
             src="/images/login-illustration.svg"
             alt="Login illustration"
+            width={210}
+            height={370}
             className="absolute right-0 bottom-5 lg:w-2/5 md:w-1/3"
           />
         </div>

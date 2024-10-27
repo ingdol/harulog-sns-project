@@ -3,7 +3,7 @@ export default function ProfilePage({
 }: {
   params: { id: string | string[] };
 }) {
-  let isOwner = params.id === "user";
+  const isOwner = params.id === "user";
   return (
     <div className="flex-grow p-10 max-w-screen-lg">
       {isOwner ? (

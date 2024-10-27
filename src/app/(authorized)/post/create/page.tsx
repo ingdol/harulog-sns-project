@@ -1,9 +1,8 @@
 "use client";
-import { XMarkIcon } from "@heroicons/react/24/solid";
-import { PhotoIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
+import { PhotoIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import React, { useState } from "react";
 
 export default function PostCreatePage() {
   const [content, setContent] = useState("");
