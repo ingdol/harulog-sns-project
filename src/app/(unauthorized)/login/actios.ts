@@ -2,21 +2,37 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 import { createClient } from "@/utils/supabase/server";
 
 export async function login(formData: FormData) {
   const supabase = createClient();
 
-  const data = {
+  const signData = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
-  console.log(data);
-  const { error } = await supabase.auth.signInWithPassword(data);
+
+  const { data, error } = await supabase.auth.signInWithPassword(signData);
+
+  if (data?.user) {
+    console.log("로그인 성공");
+    console.log(data);
+
+    const cookieStore = cookies();
+    cookieStore.set("accessToken", data.session.access_token, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+      maxAge: data.session.expires_in,
+    });
+  }
 
   if (error) {
+    console.error("로그인 에러:", error.message);
     redirect("/error");
+    return;
   }
 
   revalidatePath("/", "layout");

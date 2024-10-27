@@ -1,3 +1,4 @@
+"use client";
 import {
   ArrowLeftStartOnRectangleIcon,
   ChatBubbleLeftRightIcon,
@@ -10,6 +11,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import Logo from "@/components/Logo";
+import { useAuthStore } from "@/stores/auth/useAuthStore";
+import { useEffect } from "react";
 
 const menuItems = [
   {
@@ -30,6 +33,12 @@ const menuItems = [
 ];
 
 export default function Sidebar() {
+  const checkLoginStatus = useAuthStore((state) => state.checkLoginStatus);
+  const { user } = useAuthStore();
+  console.log("Sidebar user:", user);
+  useEffect(() => {
+    checkLoginStatus();
+  }, [checkLoginStatus]);
   return (
     <div className="flex flex-col justify-between items-center h-full lg:items-start">
       <div>
@@ -46,10 +55,8 @@ export default function Sidebar() {
             className="rounded-full mb-2"
           />
           <div className="flex-col hidden lg:block">
-            <h2 className="text-md font-bold lg:text-left">Duck UI</h2>
-            <p className="text-xs text-gray-400 lg:text-left">
-              Duckui@demo.com
-            </p>
+            <h2 className="text-md font-bold lg:text-left">{user?.nickname}</h2>
+            <p className="text-xs text-gray-400 lg:text-left">{user?.email}</p>
           </div>
         </div>
 
@@ -85,13 +92,16 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <Link
-        href="/"
+      <form
+        action="/auth/signout"
+        method="post"
         className="flex items-center justify-center lg:justify-start gap-4 text-gray-400 py-2 hover:text-cyan-600 active:text-cyan-700 transition-colors"
       >
         <ArrowLeftStartOnRectangleIcon className="w-7 h-7" />
-        <span className="hidden lg:block">Logout</span>
-      </Link>
+        <button className="hidden lg:block" type="submit">
+          Sign out
+        </button>
+      </form>
     </div>
   );
 }
