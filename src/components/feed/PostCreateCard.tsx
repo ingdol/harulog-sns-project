@@ -1,10 +1,12 @@
 "use client";
 
+import { createFeed } from "@/actions/feed-action";
 import { uploadFile } from "@/actions/storage-action";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { PhotoIcon } from "@heroicons/react/24/outline";
+import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, Suspense } from "react";
 
 export default function PostCreateCard() {
   const [content, setContent] = useState("");
@@ -15,9 +17,13 @@ export default function PostCreateCard() {
   const [isUploading, setIsUploading] = useState(false);
   const [textareaHeight, setTextareaHeight] = useState("h-44");
 
+  const createFeedMutation = useMutation({
+    mutationFn: async (newFeed: any) => await createFeed(newFeed),
+  });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!imageFile) return;
+    if (!imageFile && !content) return;
 
     try {
       setIsUploading(true);
@@ -33,8 +39,16 @@ export default function PostCreateCard() {
         }
       }
       console.log("Uploaded Image URL:", uploadedImageUrl);
+      const newFeed = {
+        feed_content: content,
+        feed_image: uploadedImageUrl || null,
+        user_nickname: user?.nickname,
+      };
+
+      createFeedMutation.mutate(newFeed);
+      console.log("Created Feed:", newFeed);
     } catch (error) {
-      console.error("Error creating post:", (error as Error).message);
+      console.error("Error creating Feed:", (error as Error).message);
     } finally {
       setIsUploading(false);
     }
@@ -103,16 +117,18 @@ export default function PostCreateCard() {
           }}
         />
 
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          disabled={isUploading}
-          className={`bg-cyan-600 text-white px-8 py-1.5 rounded hover:bg-cyan-700 ${
-            isUploading ? "opacity-50" : ""
-          }`}
-        >
-          {isUploading ? "Posting..." : "Post"}
-        </button>
+        <Suspense fallback={<div>Loading...</div>}>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            disabled={createFeedMutation.isPending}
+            className={`bg-cyan-600 text-white px-8 py-1.5 rounded hover:bg-cyan-700 ${
+              createFeedMutation.isPending ? "opacity-50" : ""
+            }`}
+          >
+            {createFeedMutation.isPending ? "Posting..." : "Post"}
+          </button>
+        </Suspense>
       </div>
     </>
   );
