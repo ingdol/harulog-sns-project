@@ -1,9 +1,8 @@
 "use client";
 
-import styles from "./Modal.module.css";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
+import styles from "./Modal.module.css";
 import ModalBackButton from "./ModalBackButton";
 
 export default function InterceptingModal({
@@ -21,20 +20,21 @@ export default function InterceptingModal({
     }
   }, []);
 
-  return createPortal(
-    <div
-      className={styles.modalOverlay}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          router.back();
-        }
-      }}
-    >
-      <div className={styles.modalContent}>
-        <ModalBackButton />
-        {children}
+  return (
+    <div className="modalContainer">
+      <div
+        className={styles.modalOverlay}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            router.back();
+          }
+        }}
+      >
+        <div className={styles.modalContent}>
+          <ModalBackButton />
+          {children}
+        </div>
       </div>
-    </div>,
-    document.getElementById("modal-root") as HTMLElement
+    </div>
   );
 }

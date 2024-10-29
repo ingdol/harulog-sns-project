@@ -1,6 +1,6 @@
 "use server";
 
-import { NewFeedDTO } from "@/lib/feed/types";
+import { IFeed, NewFeedDTO } from "@/lib/feed/types";
 import { createClient } from "@/utils/supabase/server";
 
 function handleError(error: Error | null) {
@@ -10,17 +10,25 @@ function handleError(error: Error | null) {
   }
 }
 
-export async function createFeed(feed: NewFeedDTO) {
+export async function addFeedAPI(feed: NewFeedDTO): Promise<IFeed> {
   const supabase = createClient();
 
-  const { data, error } = await supabase.from("feeds").insert({
-    ...feed,
-    created_at: new Date().toISOString(),
-  });
+  const { data, error } = await supabase
+    .from("feeds")
+    .insert({
+      ...feed,
+      created_at: new Date().toISOString(),
+    })
+    .select("*")
+    .single();
 
   if (error) {
     handleError(error);
   }
 
-  return data;
+  if (!data) {
+    throw new Error("Failed to retrieve the inserted feed");
+  }
+
+  return data as IFeed;
 }
