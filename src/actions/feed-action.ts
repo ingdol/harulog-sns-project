@@ -10,7 +10,7 @@ function handleError(error: Error | null) {
   }
 }
 
-export async function addFeedAPI(feed: NewFeedDTO): Promise<IFeed> {
+export async function createFeed(feed: NewFeedDTO): Promise<IFeed> {
   const supabase = createClient();
 
   const { data, error } = await supabase

@@ -3,7 +3,7 @@
 import { uploadFile } from "@/actions/storage-action";
 import { createNewFeed } from "@/helpers/feed";
 import { NewFeedDTO } from "@/lib/feed";
-import { useAddFeed } from "@/lib/feed/hooks/useAddFeed";
+import { useCreateFeed } from "@/lib/feed/hooks";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
@@ -17,7 +17,8 @@ export default function PostCreateCard() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { user } = useAuthStore();
 
-  const { mutateAsync: createFeedMutate, isPending: isLoading } = useAddFeed();
+  const { mutateAsync: createFeedMutate, isPending: isLoading } =
+    useCreateFeed();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
