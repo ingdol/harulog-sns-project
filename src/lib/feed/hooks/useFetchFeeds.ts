@@ -1,10 +1,20 @@
 import { fetchFeeds } from "@/actions/feed-action";
-import { useQuery } from "@tanstack/react-query";
+import { FEED_PAGE_SIZE } from "@/constants";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { FEED_KEY } from "../key";
+import { PaginatedFeedsDTO } from "../types";
 
-export const useFetchFeeds = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["feeds"],
-    queryFn: () => fetchFeeds(),
+interface UseFeedsQueryOptions {
+  pageSize?: number;
+}
+export const useFetchFeeds = ({
+  pageSize = FEED_PAGE_SIZE,
+}: UseFeedsQueryOptions) => {
+  return useInfiniteQuery<PaginatedFeedsDTO, Error>({
+    initialPageParam: 1,
+    queryKey: [FEED_KEY],
+    queryFn: ({ pageParam }) =>
+      fetchFeeds({ page: pageParam as number, pageSize }),
+    getNextPageParam: (lastPage) => (lastPage.page ? lastPage.page + 1 : null),
   });
-  return data;
 };

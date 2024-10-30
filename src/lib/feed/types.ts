@@ -11,6 +11,15 @@ export interface IFeed {
   deleted_at: string | null;
 }
 
+export interface PaginatedFeedsDTO {
+  data: IFeed[];
+  count: number;
+  page: number | null;
+  pageSize: number | null;
+  hasNextPage: boolean;
+  error?: Error;
+}
+
 export interface NewFeedDTO {
   user_id: string;
   feed_image: string;

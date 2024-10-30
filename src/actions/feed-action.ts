@@ -1,6 +1,6 @@
 "use server";
 
-import { IFeed, NewFeedDTO } from "@/lib/feed/types";
+import { IFeed, NewFeedDTO, PaginatedFeedsDTO } from "@/lib/feed/types";
 import { createClient } from "@/utils/supabase/server";
 
 function handleError(error: Error | null) {
@@ -9,18 +9,44 @@ function handleError(error: Error | null) {
     throw error;
   }
 }
-export async function fetchFeeds() {
+
+interface FetchFeedsParams {
+  page: number;
+  pageSize: number;
+}
+
+export async function fetchFeeds({
+  page,
+  pageSize,
+}: FetchFeedsParams): Promise<PaginatedFeedsDTO> {
   const supabase = createClient();
 
-  const { data, error } = await supabase
+  const { data, count, error } = await supabase
     .from("feeds_with_nickname")
-    .select("*")
-    .order("created_at", { ascending: false });
+    .select("*", { count: "exact" })
+    .order("created_at", { ascending: false })
+    .range((page - 1) * pageSize, page * pageSize - 1);
 
+  const hasNextPage = count ? count > page * pageSize : false;
   if (error) {
-    handleError(error);
+    console.error(error);
+    return {
+      data: [],
+      count: 0,
+      page: null,
+      pageSize: null,
+      error,
+      hasNextPage: false,
+    };
   }
-  return data;
+
+  return {
+    data: data || [],
+    count: count || 0,
+    page,
+    pageSize,
+    hasNextPage,
+  };
 }
 
 export async function createFeed(feed: NewFeedDTO): Promise<IFeed> {
