@@ -1,6 +1,7 @@
 export interface IFeed {
   id: number;
   user_id: string;
+  user_nickname: string;
   feed_image: string;
   feed_content: string;
   comment_count: number;

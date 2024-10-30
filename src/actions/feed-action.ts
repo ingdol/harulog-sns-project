@@ -9,6 +9,19 @@ function handleError(error: Error | null) {
     throw error;
   }
 }
+export async function fetchFeeds() {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("feeds_with_nickname")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    handleError(error);
+  }
+  return data;
+}
 
 export async function createFeed(feed: NewFeedDTO): Promise<IFeed> {
   const supabase = createClient();

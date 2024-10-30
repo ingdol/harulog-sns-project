@@ -65,7 +65,7 @@ export default function PostCreateCard() {
           <Image
             src={imagePreview}
             alt="Image preview"
-            fill
+            layout="fill"
             objectFit="cover"
           />
         </div>
