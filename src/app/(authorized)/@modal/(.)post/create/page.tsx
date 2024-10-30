@@ -1,9 +1,10 @@
-import PostCreatePage from "@/app/(authorized)/post/create/page";
-import Modal from "@/components/modal";
+import PostCreateCard from "@/components/feed/PostCreateCard";
+import InterceptingModal from "@/components/modal/InterceptingModal";
+
 export default function PostCreateModal() {
   return (
-    <Modal>
-      <PostCreatePage />
-    </Modal>
+    <InterceptingModal>
+      <PostCreateCard />
+    </InterceptingModal>
   );
 }
