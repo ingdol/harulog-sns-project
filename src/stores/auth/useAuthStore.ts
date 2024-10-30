@@ -18,11 +18,10 @@ export const useAuthStore = create<AuthStore>((set) => ({
           if (event === "SIGNED_IN" && session?.user) {
             set({
               user: {
-                id: session?.user?.id,
-                email: session?.user?.email || "",
-                nickname: session?.user?.user_metadata?.nickname || "",
-                profile_image:
-                  session?.user?.user_metadata?.profile_image || null,
+                id: session.user.id,
+                email: session.user.email || "",
+                nickname: session.user.user_metadata?.nickname || "",
+                profile_image: session.user.user_metadata?.profile_image || "",
               },
               isLogin: true,
             });
