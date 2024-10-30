@@ -1,26 +1,15 @@
+import { IFeed } from "@/lib/feed";
+import { getImageUrl } from "@/utils/supabase/storage";
+import { getTimeDisplay } from "@/utils/time/timeUtils";
 import {
   ChatBubbleBottomCenterIcon,
   HeartIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
-interface PostProps {
-  post: {
-    id: string;
-    user_id: string;
-    post_contents: string;
-    post_image: string;
-    comment_count: number;
-    like_count: number;
-    created_at: string;
-    updated_at: string;
-    deleted_at: string;
-  };
-}
-
-export default function Post({ post }: PostProps) {
+export default function Post({ post }: { post: IFeed }) {
   return (
-    <div className="bg-white p-4 max-w-xl mx-auto">
+    <div className="bg-white p-4 w-[24rem] md:w-[28rem] lg:w-[36rem] mx-auto">
       <div className="flex items-center mb-4">
         <Image
           src={`/images/default-profile.jpg`}
@@ -30,22 +19,26 @@ export default function Post({ post }: PostProps) {
           className="rounded-full mr-3"
         />
         <div className="flex items-center gap-1">
-          <p className="font-semibold text-sm">User {post.user_id}</p>
+          <p className="font-semibold text-sm">{post.user_nickname}</p>
           <p className="text-gray-500">•</p>
-          <p className="text-gray-500 text-sm">{post.created_at}</p>
+          <p className="text-gray-500 text-sm">
+            {getTimeDisplay(post.created_at)}
+          </p>
         </div>
       </div>
-      {post.post_image && (
-        <div className="mb-4">
+      {post.feed_image && (
+        <div className="mb-4 aspect-video max-w-full relative">
           <Image
-            src={`/images/test-image.png`}
+            src={getImageUrl(post.feed_image)}
             alt="Post image"
-            width={720}
-            height={160}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 720px"
+            style={{ objectFit: "cover" }}
           />
         </div>
       )}
-      <p className="mb-4">{post.post_contents}</p>
+      <p className="mb-4">{post.feed_content}</p>
       <div className="flex gap-2 text-gray-500">
         <div className="flex items-center gap-1">
           <HeartIcon className="w-6 h-6" />
