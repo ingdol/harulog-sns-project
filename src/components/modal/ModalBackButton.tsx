@@ -10,7 +10,7 @@ export default function ModalBackButton() {
   };
   return (
     <button
-      className="absolute right-6"
+      className="absolute top-4 right-4"
       aria-label="Close modal"
       onClick={handleBack}
     >

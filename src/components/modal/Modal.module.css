@@ -7,5 +7,5 @@
 }
 
 .modalContent {
-  @apply relative bg-white p-6 rounded-lg w-full max-w-xl max-h-fit;
+  @apply relative bg-white rounded-md w-fit h-fit;
 }

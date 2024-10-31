@@ -6,6 +6,7 @@ import {
   HeartIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Post({ post }: { post: IFeed }) {
   return (
@@ -45,7 +46,9 @@ export default function Post({ post }: { post: IFeed }) {
           <p>{post.like_count || ""}</p>
         </div>
         <div className="flex items-center gap-1">
-          <ChatBubbleBottomCenterIcon className="w-6 h-6" />
+          <Link href={`/post/${post.id}`}>
+            <ChatBubbleBottomCenterIcon className="w-6 h-6 hover:text-gray-800" />
+          </Link>
           <p>{post.comment_count || ""}</p>
         </div>
       </div>

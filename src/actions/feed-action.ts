@@ -49,6 +49,26 @@ export async function fetchFeeds({
   };
 }
 
+export async function fetchFeedById(feedId: string): Promise<IFeed | null> {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("feeds_with_nickname")
+    .select("*")
+    .eq("id", feedId)
+    .single();
+
+  if (error) {
+    handleError(error);
+  }
+
+  if (!data) {
+    throw new Error(`Feed with id ${feedId} not found`);
+  }
+
+  return data as IFeed;
+}
+
 export async function createFeed(feed: NewFeedDTO): Promise<IFeed> {
   const supabase = createClient();
 
