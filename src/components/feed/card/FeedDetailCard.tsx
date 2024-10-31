@@ -7,7 +7,7 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
-export default function PostDetailCard() {
+export default function FeedDetailCard() {
   const params = useParams() as { id: string };
   const id = params?.id;
 
@@ -20,7 +20,7 @@ export default function PostDetailCard() {
           <div className="w-2/3">
             <Image
               src={getImageUrl(data.feed_image)}
-              alt="Post image"
+              alt="Feed image"
               priority
               width={720}
               height={720}

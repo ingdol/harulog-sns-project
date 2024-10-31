@@ -10,7 +10,7 @@ export default function EmptyFeed() {
         <p className="text-xl text-gray-700">
           오늘{" "}
           <Link
-            href="/post/create"
+            href="/feed/create"
             className="text-2xl text-cyan-700 hover:underline"
           >
             하루 기록
