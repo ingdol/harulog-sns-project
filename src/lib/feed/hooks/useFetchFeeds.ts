@@ -16,5 +16,6 @@ export const useFetchFeeds = ({
     queryFn: ({ pageParam }) =>
       fetchFeeds({ page: pageParam as number, pageSize }),
     getNextPageParam: (lastPage) => (lastPage.page ? lastPage.page + 1 : null),
+    staleTime: 60 * 1000,
   });
 };

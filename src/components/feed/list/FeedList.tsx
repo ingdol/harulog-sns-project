@@ -16,6 +16,8 @@ export default function FeedList() {
     threshold: 0,
   });
 
+  const feedData = data?.pages?.flatMap((page) => page.data) || [];
+
   useEffect(() => {
     if (inView && hasNextPage && !isFetching && !isFetchingNextPage) {
       fetchNextPage();
@@ -31,11 +33,8 @@ export default function FeedList() {
         </div>
       )}
 
-      {data?.pages && data.pages.length > 0
-        ? data.pages
-            .map((page) => page.data)
-            .flat()
-            .map((feed: IFeed) => <Feed key={feed.id} feed={feed} />)
+      {feedData.length > 0
+        ? feedData.map((feed: IFeed) => <Feed key={feed.id} feed={feed} />)
         : !isFetching && !isFetchingNextPage && <EmptyFeed />}
       <div ref={ref}></div>
     </div>
