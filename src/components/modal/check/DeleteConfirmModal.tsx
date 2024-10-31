@@ -2,15 +2,15 @@
 
 import { useEffect, useRef } from "react";
 
-interface DeleteConfirmationModalProps {
+interface DeleteConfirmModalProps {
   onClose: () => void;
   onDelete: () => void;
 }
 
-const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
+export default function DeleteConfirmModal({
   onClose,
   onDelete,
-}) => {
+}: DeleteConfirmModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,6 +57,4 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
       </div>
     </div>
   );
-};
-
-export default DeleteConfirmationModal;
+}

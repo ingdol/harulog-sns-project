@@ -2,7 +2,7 @@
 
 import { FEED_PAGE_SIZE } from "@/constants";
 import { IFeed } from "@/lib/feed";
-import { useFetchFeeds } from "@/lib/feed/hooks/useFetchFeeds";
+import { useFetchFeeds } from "@/lib/feed/hooks";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { CloudIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";

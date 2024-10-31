@@ -24,6 +24,7 @@ export async function fetchFeeds({
   const { data, count, error } = await supabase
     .from("feeds_with_nickname")
     .select("*", { count: "exact" })
+    .is("deleted_at", null)
     .order("created_at", { ascending: false })
     .range((page - 1) * pageSize, page * pageSize - 1);
 
@@ -90,4 +91,20 @@ export async function createFeed(feed: NewFeedDTO): Promise<IFeed> {
   }
 
   return data as IFeed;
+}
+
+export async function deleteFeed(feedId: number) {
+  const supabase = createClient();
+
+  const { error } = await supabase
+    .from("feeds")
+    .update({ deleted_at: new Date().toISOString() })
+    .eq("id", feedId);
+
+  if (error) {
+    handleError(error);
+    return false;
+  }
+
+  return true;
 }

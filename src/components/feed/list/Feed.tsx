@@ -35,7 +35,9 @@ export default function Feed({ feed, user }: FeedProps) {
             </p>
           </div>
         </div>
-        {feed.user_id === user?.id && <FeedSubMenu id={feed.id} />}
+        {feed.user_id === user?.id && (
+          <FeedSubMenu feedId={feed.id} imagePath={feed.feed_image} />
+        )}
       </div>
       {feed.feed_image && (
         <div className="mb-4 aspect-video max-w-full relative">

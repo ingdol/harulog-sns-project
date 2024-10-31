@@ -1,19 +1,23 @@
 "use client";
 
-import { DeleteConfirmationModal } from "@/components/modal/check";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useDeleteFeed } from "@/lib/feed/hooks";
+import { DeleteConfirmModal } from "@/components/modal/check";
 
 interface FeedSubMenuProps {
-  id: number;
+  feedId: number;
+  imagePath: string;
 }
 
-export default function FeedSubMenu({ id }: FeedSubMenuProps) {
+export default function FeedSubMenu({ feedId, imagePath }: FeedSubMenuProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { mutateAsync: deleteFeedMutate, isPending: isLoading } =
+    useDeleteFeed();
 
   const toggleMenu = () => {
     setIsVisible(!isVisible);
@@ -28,14 +32,18 @@ export default function FeedSubMenu({ id }: FeedSubMenuProps) {
     setIsModalVisible(false);
   };
 
-  const handleDelete = () => {
-    console.log("삭제되었습니다.");
-    setIsModalVisible(false);
+  const handleDelete = async () => {
+    try {
+      await deleteFeedMutate({ feedId, imagePath });
+      console.log("삭제되었습니다.");
+      setIsModalVisible(false);
+    } catch (error) {
+      console.error("삭제 중 오류 발생:", error);
+    }
   };
 
   const handleEdit = () => {
-    // 수정 페이지로 이동
-    router.push(`/feed/edit/${id}`);
+    router.push(`/feed/edit/${feedId}`);
     setIsModalVisible(false);
   };
 
@@ -77,7 +85,7 @@ export default function FeedSubMenu({ id }: FeedSubMenuProps) {
         </div>
       )}
       {isModalVisible && (
-        <DeleteConfirmationModal onClose={closeModal} onDelete={handleDelete} />
+        <DeleteConfirmModal onClose={closeModal} onDelete={handleDelete} />
       )}
     </div>
   );

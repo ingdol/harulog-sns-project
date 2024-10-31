@@ -10,14 +10,14 @@ function handleError(error: Error | null) {
   }
 }
 
+const supabase = createClient();
+const bucketName = process.env.NEXT_PUBLIC_STORAGE_BUCKET!;
+
 export async function uploadFile(formData: FormData) {
-  const supabase = createClient();
   const file = formData.get("file") as File;
 
   const cookieStore = cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
-
-  const bucketName = process.env.NEXT_PUBLIC_STORAGE_BUCKET!;
 
   const { data, error } = await supabase.storage
     .from(bucketName)
@@ -31,4 +31,9 @@ export async function uploadFile(formData: FormData) {
   handleError(error);
 
   return data;
+}
+
+export async function deleteFile(imagePath: string) {
+  const { error } = await supabase.storage.from(bucketName).remove([imagePath]);
+  if (error) throw error;
 }
