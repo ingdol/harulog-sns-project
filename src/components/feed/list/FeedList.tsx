@@ -7,9 +7,8 @@ import { CloudIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import EmptyFeed from "./EmptyFeed";
-import Post from "./Post";
-
-const Feed = () => {
+import Feed from "./Feed";
+export default function FeedList() {
   const { data, isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useFetchFeeds({ pageSize: FEED_PAGE_SIZE });
 
@@ -36,11 +35,9 @@ const Feed = () => {
         ? data.pages
             .map((page) => page.data)
             .flat()
-            .map((post: IFeed) => <Post key={post.id} post={post} />)
+            .map((feed: IFeed) => <Feed key={feed.id} feed={feed} />)
         : !isFetching && !isFetchingNextPage && <EmptyFeed />}
       <div ref={ref}></div>
     </div>
   );
-};
-
-export default Feed;
+}

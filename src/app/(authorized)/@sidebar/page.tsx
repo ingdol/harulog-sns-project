@@ -10,9 +10,9 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { PlusIcon } from "@heroicons/react/24/solid";
-import Logo from "@/components/Logo";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { useEffect } from "react";
+import Logo from "@/components/logo";
 
 const menuItems = [
   {
@@ -79,7 +79,7 @@ export default function Sidebar() {
           ))}
 
           <Link
-            href={"/post/create"}
+            href={"/feed/create"}
             className="hidden lg:flex mt-4 items-center w-fit gap-4 text-white bg-cyan-600 lg:py-2 lg:px-4 rounded-md hover:bg-cyan-700 transition-colors"
           >
             <PlusIcon className="w-5 h-5" />

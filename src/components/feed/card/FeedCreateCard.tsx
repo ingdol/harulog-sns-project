@@ -1,16 +1,16 @@
 "use client";
 
 import { uploadFile } from "@/actions/storage-action";
+import { FileUploadButton, SubmitButton } from "@/components/button";
+import UserInfo from "@/components/user/UserInfo";
 import { createNewFeed } from "@/helpers/feed";
 import { NewFeedDTO } from "@/lib/feed";
 import { useCreateFeed } from "@/lib/feed/hooks";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
-import { FileUploadButton, SubmitButton } from "../button";
-import UserInfo from "../user/UserInfo";
 
-export default function PostCreateCard() {
+export default function FeedCreateCard() {
   const [content, setContent] = useState("");
   const [imagePreview, setImagePreview] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);

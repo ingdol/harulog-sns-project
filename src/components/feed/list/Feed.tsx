@@ -8,7 +8,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Post({ post }: { post: IFeed }) {
+export default function Feed({ feed }: { feed: IFeed }) {
   return (
     <div className="bg-white p-4 w-[24rem] md:w-[28rem] lg:w-[36rem] mx-auto">
       <div className="flex items-center mb-4">
@@ -20,18 +20,18 @@ export default function Post({ post }: { post: IFeed }) {
           className="rounded-full mr-3"
         />
         <div className="flex items-center gap-1">
-          <p className="font-semibold text-sm">{post.user_nickname}</p>
+          <p className="font-semibold text-sm">{feed.user_nickname}</p>
           <p className="text-gray-500">•</p>
           <p className="text-gray-500 text-sm">
-            {getTimeDisplay(post.created_at)}
+            {getTimeDisplay(feed.created_at)}
           </p>
         </div>
       </div>
-      {post.feed_image && (
+      {feed.feed_image && (
         <div className="mb-4 aspect-video max-w-full relative">
           <Image
-            src={getImageUrl(post.feed_image)}
-            alt="Post image"
+            src={getImageUrl(feed.feed_image)}
+            alt="feed image"
             fill
             priority
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 720px"
@@ -39,17 +39,17 @@ export default function Post({ post }: { post: IFeed }) {
           />
         </div>
       )}
-      <p className="mb-4">{post.feed_content}</p>
+      <p className="mb-4">{feed.feed_content}</p>
       <div className="flex gap-2 text-gray-500">
         <div className="flex items-center gap-1">
           <HeartIcon className="w-6 h-6" />
-          <p>{post.like_count || ""}</p>
+          <p>{feed.like_count || ""}</p>
         </div>
         <div className="flex items-center gap-1">
-          <Link href={`/post/${post.id}`}>
+          <Link href={`/feed/${feed.id}`}>
             <ChatBubbleBottomCenterIcon className="w-6 h-6 hover:text-gray-800" />
           </Link>
-          <p>{post.comment_count || ""}</p>
+          <p>{feed.comment_count || ""}</p>
         </div>
       </div>
     </div>
