@@ -3,12 +3,15 @@
 import { FEED_PAGE_SIZE } from "@/constants";
 import { IFeed } from "@/lib/feed";
 import { useFetchFeeds } from "@/lib/feed/hooks/useFetchFeeds";
+import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { CloudIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import EmptyFeed from "./EmptyFeed";
 import Feed from "./Feed";
+
 export default function FeedList() {
+  const { user } = useAuthStore();
   const { data, isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useFetchFeeds({ pageSize: FEED_PAGE_SIZE });
 
@@ -34,7 +37,9 @@ export default function FeedList() {
       )}
 
       {feedData.length > 0
-        ? feedData.map((feed: IFeed) => <Feed key={feed.id} feed={feed} />)
+        ? feedData.map((feed: IFeed) => (
+            <Feed key={feed.id} feed={feed} user={user || undefined} />
+          ))
         : !isFetching && !isFetchingNextPage && <EmptyFeed />}
       <div ref={ref}></div>
     </div>

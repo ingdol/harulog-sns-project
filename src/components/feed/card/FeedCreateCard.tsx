@@ -45,8 +45,12 @@ export default function FeedCreateCard() {
 
   const handleImageUpload = async (): Promise<string> => {
     if (!imageFile) return "";
+    const uniqueFileName = `${crypto.randomUUID()}_${imageFile.name}`;
+    const renamedFile = new File([imageFile], uniqueFileName, {
+      type: imageFile.type,
+    });
     const formData = new FormData();
-    formData.append("file", imageFile);
+    formData.append("file", renamedFile);
     const result = await uploadFile(formData);
     return result?.path || "";
   };
