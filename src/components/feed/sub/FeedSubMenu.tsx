@@ -16,8 +16,7 @@ export default function FeedSubMenu({ feedId, imagePath }: FeedSubMenuProps) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const { mutateAsync: deleteFeedMutate, isPending: isLoading } =
-    useDeleteFeed();
+  const { mutateAsync: deleteFeedMutate } = useDeleteFeed();
 
   const toggleMenu = () => {
     setIsVisible(!isVisible);

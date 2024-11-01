@@ -14,20 +14,19 @@ export default function FeedDetailCard() {
   const { data } = useFetchFeedDetail(id);
 
   return (
-    <div className="flex items-center justify-center w-full h-96">
+    <div className="flex items-center justify-center w-full h-full overflow-y-auto md:overflow-hidden">
       {data ? (
-        <div className="flex">
-          <div className="w-2/3">
+        <div className="flex gap-6 w-full h-full flex-col md:flex-row ">
+          <div className="md:w-3/5 relative aspect-square">
             <Image
               src={getImageUrl(data.feed_image)}
               alt="Feed image"
               priority
-              width={720}
-              height={720}
-              className="object-cover h-full w-full"
+              fill
+              className="object-contain"
             />
           </div>
-          <div className="w-1/3 p-4 flex flex-col">
+          <div className="md:w-2/5 flex flex-col ">
             <div className="border-b">
               <div className="flex items-center pb-3">
                 <Image
@@ -49,8 +48,8 @@ export default function FeedDetailCard() {
             <div className="flex-1 overflow-y-auto py-3">
               <p className="text-gray-500 text-xs">No comments yet.</p>
             </div>
-            <div className="flex items-center gap-1 border-t pt-2 text-gray-500">
-              <HeartIcon className="w-5 h-5" />
+            <div className="flex items-center gap-1 border-t pt-2 text-gray-500 md:mb-0 mb-6">
+              <HeartIcon className="w-6 h-6" />
               <p>{data.like_count || ""}</p>
             </div>
           </div>

@@ -18,36 +18,42 @@ export default function FeedForm({ isLoading, onSubmit }: FeedFormProps) {
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
   return (
-    <form onSubmit={onSubmit}>
-      <UserInfo user={user} />
+    <form onSubmit={onSubmit} className="h-full flex flex-col justify-between">
+      <div className="flex items-center justify-center w-full h-full overflow-y-auto md:overflow-hidden">
+        <div className="flex gap-6 w-full h-full flex-col md:flex-row ">
+          {(imageFile || imagePreview) && (
+            <div className="md:w-3/5 relative aspect-square">
+              <Image
+                src={
+                  imageFile
+                    ? URL.createObjectURL(imageFile)
+                    : getImageUrl(imagePreview)
+                }
+                priority
+                fill
+                className="object-contain"
+                alt="Image preview"
+              />
+            </div>
+          )}
 
-      {(imageFile || imagePreview) && (
-        <div className="mb-4">
-          <Image
-            src={
-              imageFile
-                ? URL.createObjectURL(imageFile)
-                : getImageUrl(imagePreview)
-            }
-            width={100}
-            height={50}
-            alt="Image preview"
-          />
+          <div
+            className={`h-full flex flex-col gap-4 ${
+              imageFile || imagePreview ? "py-6 md:w-2/5" : "w-full"
+            }`}
+          >
+            <UserInfo user={user} />
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="오늘 하루는 어떠셨나요?"
+              className={`w-full flex-1 focus:outline-none focus:border-blue-500 resize-none p-2`}
+            />
+          </div>
         </div>
-      )}
+      </div>
 
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="오늘 하루는 어떠셨나요?"
-        className={`w-full ${
-          imagePreview ? "min-h-20" : "min-h-64 h-full"
-        } rounded-md focus:outline-none focus:border-blue-500 resize-none p-2`}
-      />
-
-      <div className="border-t border-gray-300 w-full my-2"></div>
-
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center border-t border-gray-300 pt-2 mt-4">
         <FileUploadButton onClick={() => fileInputRef.current?.click()} />
         <input
           type="file"

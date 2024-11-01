@@ -3,7 +3,7 @@ import { InterceptingModal } from "@/components/modal";
 
 export default function FeedDetailModal() {
   return (
-    <InterceptingModal>
+    <InterceptingModal type="feedDetail">
       <FeedDetailCard />
     </InterceptingModal>
   );

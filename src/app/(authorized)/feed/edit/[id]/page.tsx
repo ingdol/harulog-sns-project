@@ -3,10 +3,8 @@ import { ModalPage } from "@/components/modal";
 
 export default function FeedEditPage() {
   return (
-    <>
-      <ModalPage>
-        <FeedCreateEditCard />
-      </ModalPage>
-    </>
+    <ModalPage type="feedDetail">
+      <FeedCreateEditCard />
+    </ModalPage>
   );
 }
