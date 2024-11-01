@@ -11,7 +11,6 @@ export const useFeedStore = create<FeedStore>((set) => ({
   setImageFile: (file) =>
     set({
       imageFile: file,
-      imagePreview: URL.createObjectURL(file),
     }),
   loadFeedData: async (feedId) => {
     const feed = await fetchFeedById(feedId);

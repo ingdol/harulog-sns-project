@@ -1,10 +1,10 @@
-import { FeedCreateCard } from "@/components/feed/card";
+import { FeedCreateEditCard } from "@/components/feed/card";
 import { InterceptingModal } from "@/components/modal";
 
 export default function FeedEditModal() {
   return (
     <InterceptingModal>
-      <FeedCreateCard />
+      <FeedCreateEditCard />
     </InterceptingModal>
   );
 }

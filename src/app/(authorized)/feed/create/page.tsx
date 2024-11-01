@@ -1,11 +1,11 @@
-import { FeedCreateCard } from "@/components/feed/card";
+import { FeedCreateEditCard } from "@/components/feed/card";
 import { ModalPage } from "@/components/modal";
 
 export default function FeedCreatePage() {
   return (
     <>
       <ModalPage>
-        <FeedCreateCard />
+        <FeedCreateEditCard />
       </ModalPage>
     </>
   );

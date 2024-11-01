@@ -2,6 +2,7 @@ import { FileUploadButton, SubmitButton } from "@/components/button";
 import UserInfo from "@/components/user/UserInfo";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { useFeedStore } from "@/stores/feed/useFeedStore";
+import { getImageUrl } from "@/utils/supabase/storage";
 import Image from "next/image";
 import React from "react";
 
@@ -12,20 +13,25 @@ interface FeedFormProps {
 
 export default function FeedForm({ isLoading, onSubmit }: FeedFormProps) {
   const { user } = useAuthStore();
-  const { content, imagePreview, setContent, setImageFile } = useFeedStore();
+  const { content, imageFile, imagePreview, setContent, setImageFile } =
+    useFeedStore();
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
   return (
     <form onSubmit={onSubmit}>
       <UserInfo user={user} />
 
-      {imagePreview && (
-        <div className="mb-4 relative aspect-video">
+      {(imageFile || imagePreview) && (
+        <div className="mb-4">
           <Image
-            src={imagePreview}
+            src={
+              imageFile
+                ? URL.createObjectURL(imageFile)
+                : getImageUrl(imagePreview)
+            }
+            width={100}
+            height={50}
             alt="Image preview"
-            layout="fill"
-            objectFit="cover"
           />
         </div>
       )}
