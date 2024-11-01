@@ -9,9 +9,14 @@ import { DeleteConfirmModal } from "@/components/modal/check";
 interface FeedSubMenuProps {
   feedId: number;
   imagePath: string;
+  isTopMenu?: boolean;
 }
 
-export default function FeedSubMenu({ feedId, imagePath }: FeedSubMenuProps) {
+export default function FeedSubMenu({
+  feedId,
+  imagePath,
+  isTopMenu,
+}: FeedSubMenuProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -60,13 +65,17 @@ export default function FeedSubMenu({ feedId, imagePath }: FeedSubMenuProps) {
   }, []);
 
   return (
-    <div className="relative" ref={menuRef}>
+    <div className="relative flex items-center" ref={menuRef}>
       <button onClick={toggleMenu}>
         <EllipsisHorizontalIcon className="w-6 h-6 text-gray-600" />
       </button>
 
       {isVisible && (
-        <div className="absolute right-0 top-8 w-40 bg-white border border-gray-200 rounded-lg shadow-2xl z-50 text-sm">
+        <div
+          className={`absolute right-0 ${
+            isTopMenu ? "-top-24" : "top-8"
+          } w-40 bg-white border border-gray-200 rounded-lg shadow-md text-sm z-50`}
+        >
           <ul className="flex flex-col divide-y divide-gray-200">
             <li
               onClick={openModal}

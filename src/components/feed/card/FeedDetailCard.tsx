@@ -1,20 +1,23 @@
 "use client";
 
 import { useFetchFeedDetail } from "@/lib/feed/hooks";
+import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { getImageUrl } from "@/utils/supabase/storage";
 import { getTimeDisplay } from "@/utils/time/timeUtils";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { FeedSubMenu } from "../sub";
 
 export default function FeedDetailCard() {
+  const { user } = useAuthStore();
   const params = useParams() as { id: string };
   const id = params?.id;
 
   const { data } = useFetchFeedDetail(id);
 
   return (
-    <div className="flex items-center justify-center w-full h-full overflow-y-auto md:overflow-hidden">
+    <div className="flex items-center justify-center w-full h-full overflow-y-auto ">
       {data ? (
         <div className="flex gap-6 w-full h-full flex-col md:flex-row ">
           <div className="md:w-3/5 relative aspect-square">
@@ -48,9 +51,19 @@ export default function FeedDetailCard() {
             <div className="flex-1 overflow-y-auto py-3">
               <p className="text-gray-500 text-xs">No comments yet.</p>
             </div>
-            <div className="flex items-center gap-1 border-t pt-2 text-gray-500 md:mb-0 mb-6">
-              <HeartIcon className="w-6 h-6" />
-              <p>{data.like_count || ""}</p>
+            <div className="flex w-full items-center justify-between border-t pt-2 text-gray-500 md:mb-0 mb-6">
+              <div className="flex items-center gap-1">
+                <HeartIcon className="w-6 h-6" />
+                <p>{data.like_count || ""}</p>
+              </div>
+
+              {data.user_id === user?.id && (
+                <FeedSubMenu
+                  feedId={Number(id)}
+                  imagePath={data.feed_image}
+                  isTopMenu
+                />
+              )}
             </div>
           </div>
         </div>
