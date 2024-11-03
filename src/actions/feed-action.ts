@@ -1,6 +1,11 @@
 "use server";
 
-import { IFeed, NewFeedDTO, PaginatedFeedsDTO } from "@/lib/feed/types";
+import {
+  IFeed,
+  NewFeedDTO,
+  PaginatedFeedsDTO,
+  UpdateFeedDTO,
+} from "@/lib/feed/types";
 import { createClient } from "@/utils/supabase/server";
 
 function handleError(error: Error | null) {
@@ -91,6 +96,32 @@ export async function createFeed(feed: NewFeedDTO): Promise<IFeed> {
   }
 
   return data as IFeed;
+}
+
+export async function updateFeed(
+  feedId: string,
+  updateFeedData: UpdateFeedDTO
+) {
+  const supabase = createClient();
+
+  const dataToUpdate = {
+    ...updateFeedData,
+    updated_at: new Date().toISOString(),
+  };
+
+  const { data, error } = await supabase
+    .from("feeds")
+    .update(dataToUpdate)
+    .eq("id", feedId)
+    .select("*")
+    .single();
+
+  if (error) {
+    console.error("Error updating feed:", error);
+    throw error;
+  }
+
+  return data;
 }
 
 export async function deleteFeed(feedId: number) {

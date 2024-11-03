@@ -7,7 +7,7 @@ interface UserInfoProps {
 
 export default function UserInfo({ user }: UserInfoProps) {
   return (
-    <div className="flex items-center gap-2 mb-4">
+    <div className="flex items-center gap-2">
       <Image
         src={user?.profile_image || "/images/default-profile.jpg"}
         alt="Profile Image"
@@ -15,7 +15,7 @@ export default function UserInfo({ user }: UserInfoProps) {
         height={40}
         className="rounded-full"
       />
-      <div className="flex-col hidden lg:block">
+      <div className="flex-col">
         <h2 className="text-md font-bold lg:text-left">{user?.nickname}</h2>
         <p className="text-xs text-gray-400 lg:text-left">{user?.email}</p>
       </div>

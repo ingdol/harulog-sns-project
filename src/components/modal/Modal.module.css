@@ -1,11 +1,11 @@
-.modalContainer {
-  @apply relative;
-}
-
 .modalOverlay {
   @apply absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50;
 }
 
 .modalContent {
-  @apply relative bg-white rounded-md w-fit h-fit;
+  @apply relative bg-white rounded-md p-6 max-h-[80%] h-full;
+}
+
+.feedDetail {
+  @apply min-w-[60%];
 }

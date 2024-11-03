@@ -30,3 +30,9 @@ export interface NewFeedDTO {
   // updated_at: string | null;
   // deleted_at: string | null;
 }
+
+export interface UpdateFeedDTO {
+  feed_image?: string;
+  feed_content?: string;
+  updated_at?: string;
+}
