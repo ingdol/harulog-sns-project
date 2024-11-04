@@ -1,17 +1,31 @@
 "use client";
 
+import { useDeleteFeed } from "@/lib/feed/hooks";
 import { useEffect, useRef } from "react";
 
 interface DeleteConfirmModalProps {
+  feedId: number;
+  imagePath: string;
   onClose: () => void;
-  onDelete: () => void;
 }
 
 export default function DeleteConfirmModal({
+  feedId,
+  imagePath,
   onClose,
-  onDelete,
 }: DeleteConfirmModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
+  const { mutateAsync: deleteFeedMutate } = useDeleteFeed();
+
+  const handleDelete = async () => {
+    try {
+      await deleteFeedMutate({ feedId, imagePath });
+      console.log("삭제되었습니다.");
+      onClose();
+    } catch (error) {
+      console.error("삭제 중 오류 발생:", error);
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -43,7 +57,7 @@ export default function DeleteConfirmModal({
           삭제됩니다.
         </p>
         <button
-          onClick={onDelete}
+          onClick={handleDelete}
           className="bg-red-500 text-white py-2 px-4 rounded-full w-full mb-2 hover:bg-red-600"
         >
           삭제
