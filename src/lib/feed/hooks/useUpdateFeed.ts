@@ -1,6 +1,5 @@
 import { updateFeed } from "@/actions/feed-action";
-import { queryClient } from "@/providers/TanstackQueryClientProvider";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { FEED_KEY } from "../key";
 import { IFeed, UpdateFeedDTO } from "../types";
@@ -14,6 +13,7 @@ interface UpdateFeedParams {
 }
 
 export const useUpdateFeed = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   return useMutation<IFeed, Error, UpdateFeedParams>({
