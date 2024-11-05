@@ -1,3 +1,5 @@
+"use client";
+
 import { IUser } from "@/lib/auth";
 import { IFeed } from "@/lib/feed";
 import { getImageUrl } from "@/utils/supabase/storage";
@@ -17,7 +19,7 @@ interface FeedProps {
 
 export default function Feed({ feed, user }: FeedProps) {
   return (
-    <div className="bg-white p-4 w-[24rem] md:w-[28rem] lg:w-[36rem] mx-auto">
+    <div className="bg-white p-4 w-[24rem] md:w-[28rem] lg:w-[36rem] h-full mx-auto">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
           <Image
@@ -40,14 +42,14 @@ export default function Feed({ feed, user }: FeedProps) {
         )}
       </div>
       {feed.feed_image && (
-        <div className="mb-4 aspect-video max-w-full relative">
+        <div className="mb-4">
           <Image
             src={getImageUrl(feed.feed_image)}
             alt="feed image"
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 720px"
-            style={{ objectFit: "cover" }}
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: "100%", height: "auto" }}
           />
         </div>
       )}
