@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { fetchFeedById } from "@/actions/feed-action";
 import { FeedStore } from "./types";
+import { fetchFeedById } from "@/lib/feed/api";
 
 export const useFeedStore = create<FeedStore>((set) => ({
   content: "",

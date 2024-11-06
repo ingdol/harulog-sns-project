@@ -1,9 +1,9 @@
-import { updateFeed } from "@/actions/feed-action";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { FEED_KEY } from "../key";
 import { IFeed, UpdateFeedDTO } from "../types";
-import { deleteFile } from "@/actions/storage-action";
+import { updateFeed } from "../api";
+import { deleteFile } from "@/lib/storage/api";
 
 interface UpdateFeedParams {
   feedId: string;

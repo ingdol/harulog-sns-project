@@ -1,6 +1,6 @@
-import { fetchFeedById } from "@/actions/feed-action";
 import { useQuery } from "@tanstack/react-query";
 import { FEED_DETAIL_KEY } from "../key";
+import { fetchFeedById } from "../api";
 
 export const useFetchFeedDetail = (id: string) => {
   return useQuery({

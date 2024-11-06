@@ -1,8 +1,8 @@
-import { fetchFeeds } from "@/actions/feed-action";
 import { FEED_PAGE_SIZE } from "@/constants";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { FEED_KEY } from "../key";
 import { PaginatedFeedsDTO } from "../types";
+import { fetchFeeds } from "../api";
 
 interface UseFeedsQueryOptions {
   pageSize?: number;
