@@ -1,13 +1,13 @@
 "use client";
 
 import { handleImageUpload } from "@/utils/uploadUtils";
-import { UpdateFeedDTO } from "@/lib/feed";
-import { useUpdateFeed } from "@/lib/feed/hooks";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { useFeedStore } from "@/stores/feed/useFeedStore";
 import React, { useEffect } from "react";
 import { useParams } from "next/navigation";
 import FeedForm from "@/components/Forms/FeedForm";
+import { useUpdateFeed } from "@/lib/feed/hooks";
+import { UpdateFeedDTO } from "@/lib/feed";
 
 export default function FeedEditCard() {
   const params = useParams() as { id: string };

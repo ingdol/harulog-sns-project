@@ -1,13 +1,11 @@
-import { uploadFile } from "@/actions/storage-action";
+import { uploadFile } from "@/lib/storage/api";
 
 export async function handleImageUpload(file: File): Promise<string> {
   const uniqueFileName = `${crypto.randomUUID()}_${file.name}`;
   const renamedFile = new File([file], uniqueFileName, {
     type: file.type,
   });
-  const formData = new FormData();
-  formData.append("file", renamedFile);
 
-  const result = await uploadFile(formData);
+  const result = await uploadFile(renamedFile);
   return result?.path || "";
 }

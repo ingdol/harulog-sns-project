@@ -96,7 +96,7 @@ export default function Sidebar() {
       </div>
 
       <form
-        action="/auth/signout"
+        action="/signout"
         method="post"
         className="flex items-center justify-center lg:justify-start gap-4 text-gray-400 py-2 hover:text-cyan-600 active:text-cyan-700 transition-colors"
       >

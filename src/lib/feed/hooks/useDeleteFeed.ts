@@ -1,10 +1,10 @@
-import { deleteFeed } from "@/actions/feed-action";
-import { deleteFile } from "@/actions/storage-action";
-// import { queryClient } from "@/providers/TanstackQueryClientProvider";
-import { useMutation } from "@tanstack/react-query";
-// import { FEED_KEY } from "../key";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { FEED_KEY } from "../key";
+import { deleteFeed } from "../api";
+import { deleteFile } from "@/lib/storage/api";
 
 export const useDeleteFeed = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({
       feedId,
@@ -17,10 +17,9 @@ export const useDeleteFeed = () => {
       await deleteFile(imagePath);
     },
     onSuccess: () => {
-      console.log("게시글과 이미지가 삭제되었습니다.");
-      // queryClient.invalidateQueries({
-      //   queryKey: [FEED_KEY],
-      // });
+      queryClient.invalidateQueries({
+        queryKey: [FEED_KEY],
+      });
     },
     onError: (error) => {
       console.error("삭제 중 오류가 발생했습니다:", error);

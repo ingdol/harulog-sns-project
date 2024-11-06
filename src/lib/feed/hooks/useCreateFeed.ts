@@ -1,20 +1,19 @@
-import { createFeed } from "@/actions/feed-action";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IFeed, NewFeedDTO } from "../types";
-// import { queryClient } from "@/providers/TanstackQueryClientProvider";
-// import { FEED_KEY } from "../key";
+import { FEED_KEY } from "../key";
 import { useRouter } from "next/navigation";
+import { createFeed } from "../api";
 
 export const useCreateFeed = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   return useMutation<IFeed, Error, NewFeedDTO>({
     mutationFn: createFeed,
     onSuccess: () => {
-      console.log("feed 생성 성공");
-      // queryClient.invalidateQueries({
-      //   queryKey: [FEED_KEY],
-      // });
+      queryClient.invalidateQueries({
+        queryKey: [FEED_KEY],
+      });
       router.back();
     },
     onError: (error: Error) => {

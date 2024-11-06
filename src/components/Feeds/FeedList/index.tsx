@@ -1,14 +1,14 @@
 "use client";
 
 import { FEED_PAGE_SIZE } from "@/constants";
-import { IFeed } from "@/lib/feed";
-import { useFetchFeeds } from "@/lib/feed/hooks";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { CloudIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import Feed from "../Feed";
 import EmptyFeed from "../EmptyFeed";
+import { useFetchFeeds } from "@/lib/feed/hooks";
+import { IFeed } from "@/lib/feed";
 
 export default function FeedList() {
   const { user } = useAuthStore();
