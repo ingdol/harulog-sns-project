@@ -12,7 +12,7 @@ import Link from "next/link";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { useEffect } from "react";
-import Logo from "@/components/logo";
+import Logo from "@/components/Common/Logo";
 
 const menuItems = [
   {

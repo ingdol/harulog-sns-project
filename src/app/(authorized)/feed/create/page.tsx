@@ -1,5 +1,5 @@
-import { FeedCreateCard } from "@/components/feed/card";
-import { ModalPage } from "@/components/modal";
+import { FeedCreateCard } from "@/components/Cards/FeedCard";
+import { ModalPage } from "@/components/Modals";
 
 export default function FeedCreatePage() {
   return (
