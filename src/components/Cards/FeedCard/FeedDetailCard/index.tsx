@@ -4,7 +4,7 @@ import FeedSubMenu from "@/components/Menus/FeedSubMenu";
 import { useFetchFeedDetail } from "@/lib/feed/hooks";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { getImageUrl } from "@/utils/supabase/storage";
-import { getTimeDisplay } from "@/utils/time/timeUtils";
+import { getTimeDisplay } from "@/utils/time";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useParams } from "next/navigation";

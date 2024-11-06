@@ -4,7 +4,7 @@ import { FeedSubMenu } from "@/components/Menus";
 import { IUser } from "@/lib/auth";
 import { IFeed } from "@/lib/feed";
 import { getImageUrl } from "@/utils/supabase/storage";
-import { getTimeDisplay } from "@/utils/time/timeUtils";
+import { getTimeDisplay } from "@/utils/time";
 import {
   ChatBubbleBottomCenterIcon,
   HeartIcon,

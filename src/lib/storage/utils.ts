@@ -1,4 +1,4 @@
-import { uploadFile } from "@/lib/storage/api";
+import { uploadFile } from "./api";
 
 export async function handleImageUpload(file: File): Promise<string> {
   const uniqueFileName = `${crypto.randomUUID()}_${file.name}`;

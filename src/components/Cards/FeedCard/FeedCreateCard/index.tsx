@@ -1,12 +1,12 @@
 "use client";
 
-import { handleImageUpload } from "@/utils/uploadUtils";
+import FeedForm from "@/components/Forms/FeedForm";
+import { NewFeedDTO } from "@/lib/feed";
+import { useCreateFeed } from "@/lib/feed/hooks";
+import { handleImageUpload } from "@/lib/storage/utils";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { useFeedStore } from "@/stores/feed/useFeedStore";
 import React from "react";
-import FeedForm from "@/components/Forms/FeedForm";
-import { useCreateFeed } from "@/lib/feed/hooks";
-import { NewFeedDTO } from "@/lib/feed";
 
 export default function FeedCreateCard() {
   const { content, imageFile, imagePreview, resetForm } = useFeedStore();
