@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 interface SubMenuProps {
   isTopMenu?: boolean;
   isComment?: boolean;
+  isDeleteOnly?: boolean;
   onClickEditButton?: () => void;
   onClickDeleteButton?: () => void;
 }
@@ -13,6 +14,7 @@ interface SubMenuProps {
 export default function SubMenu({
   isTopMenu,
   isComment,
+  isDeleteOnly,
   onClickEditButton = () => {},
   onClickDeleteButton = () => {},
 }: SubMenuProps) {
@@ -76,12 +78,14 @@ export default function SubMenu({
               >
                 삭제
               </li>
-              <li
-                onClick={handleEditClick}
-                className="px-4 py-2 cursor-pointer hover:bg-gray-100 rounded-b-lg"
-              >
-                수정
-              </li>
+              {!isDeleteOnly && (
+                <li
+                  onClick={handleEditClick}
+                  className="px-4 py-2 cursor-pointer hover:bg-gray-100 rounded-b-lg"
+                >
+                  수정
+                </li>
+              )}
             </ul>
           </div>
         )}

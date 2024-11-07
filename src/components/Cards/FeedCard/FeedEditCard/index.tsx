@@ -21,7 +21,7 @@ export default function FeedEditCard() {
 
   useEffect(() => {
     if (id) {
-      loadFeedData(id);
+      loadFeedData(Number(id));
     }
     return () => resetForm();
   }, [id]);

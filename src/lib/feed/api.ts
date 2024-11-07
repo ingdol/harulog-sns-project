@@ -43,7 +43,7 @@ export async function createFeed(newFeed: NewFeedDTO): Promise<IFeed> {
 }
 
 export async function updateFeed(
-  feedId: string,
+  feedId: number,
   updateData: UpdateFeedDTO
 ): Promise<IFeed> {
   const response = await fetch(`/api/feed/${feedId}`, {

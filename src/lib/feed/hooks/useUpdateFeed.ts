@@ -6,7 +6,7 @@ import { updateFeed } from "../api";
 import { deleteFile } from "@/lib/storage/api";
 
 interface UpdateFeedParams {
-  feedId: string;
+  feedId: number;
   updateFeedData: UpdateFeedDTO;
   imageFile?: File | null;
   imagePreview: string;

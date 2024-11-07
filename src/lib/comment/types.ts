@@ -18,7 +18,7 @@ export interface PaginatedCommentsDTO {
   error?: Error;
 }
 export interface NewCommentDTO {
-  feed_id: string;
+  feed_id: number;
   user_id: string;
   comment_content: string;
 }

@@ -2,7 +2,7 @@ import { COMMENT_PAGE_SIZE } from "@/constants";
 import { IComment, NewCommentDTO, PaginatedCommentsDTO } from "./types";
 
 interface FetchCommentsParams {
-  feedId: string;
+  feedId: number;
   page: number;
   pageSize?: number;
 }

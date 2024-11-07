@@ -5,7 +5,7 @@ import { COMMENT_KEY } from "../key";
 import { PaginatedCommentsDTO } from "../types";
 
 interface UseCommentsQueryOptions {
-  feedId: string;
+  feedId: number;
   pageSize?: number;
 }
 export const useFetchComments = ({
