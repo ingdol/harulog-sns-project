@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createComment } from "../api";
-import { IComment, NewCommentDTO } from "../types";
+import { deleteComment } from "../api";
 import { COMMENT_KEY } from "../key";
 import { FEED_KEY } from "@/lib/feed";
 
-export const useCreateComment = () => {
+export const useDeleteComment = () => {
   const queryClient = useQueryClient();
-  return useMutation<IComment, Error, NewCommentDTO>({
-    mutationFn: createComment,
+  return useMutation({
+    mutationFn: async ({ commentId }: { commentId: number }) => {
+      await deleteComment(commentId);
+    },
     onSuccess: () => {
-      console.log("댓글 생성 성공");
       queryClient.invalidateQueries({
         queryKey: [COMMENT_KEY],
       });
@@ -17,8 +17,8 @@ export const useCreateComment = () => {
         queryKey: [FEED_KEY],
       });
     },
-    onError: (error: Error) => {
-      console.log(error);
+    onError: (error) => {
+      console.error("삭제 중 오류가 발생했습니다:", error);
     },
   });
 };

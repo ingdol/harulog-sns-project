@@ -1,9 +1,15 @@
 "use client";
 
-import FeedSubMenu from "@/components/Menus/FeedSubMenu";
+import { FeedSubMenu } from "@/components/Menus";
+import SubMenu from "@/components/Menus/SubMenu";
 import { COMMENT_PAGE_SIZE } from "@/constants";
-import { useCreateComment, useFetchComments } from "@/lib/comment/hooks";
-import { IComment, NewCommentDTO } from "@/lib/comment/types";
+import {
+  useCreateComment,
+  useDeleteComment,
+  useFetchComments,
+  useUpdateComment,
+} from "@/lib/comment/hooks";
+import { NewCommentDTO } from "@/lib/comment/types";
 import { useFetchFeedDetail } from "@/lib/feed/hooks";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { getImageUrl } from "@/utils/supabase/storage";
@@ -18,9 +24,12 @@ export default function FeedDetailCard() {
   const { user } = useAuthStore();
   const params = useParams() as { id: string };
   const feedId = params?.id;
-  const [comment, setComment] = useState("");
+  const [commentContent, setCommentContent] = useState("");
+  const [isCommentEdit, setCommentEdit] = useState("");
+  const [contentEdit, setContentEdit] = useState("");
 
   const { data } = useFetchFeedDetail(feedId);
+  const { mutateAsync: deleteCommentMutate } = useDeleteComment();
   const {
     data: commentsFetchData,
     isFetching,
@@ -39,26 +48,50 @@ export default function FeedDetailCard() {
   const commentData =
     commentsFetchData?.pages?.flatMap((page) => page.data) || [];
 
-  const { mutateAsync: createCommentMutate, isPending: isCreating } =
-    useCreateComment();
+  const { mutateAsync: createCommentMutate } = useCreateComment();
+  const { mutateAsync: updateCommentMutate } = useUpdateComment();
 
-  const onSubmitComment = async (e: React.FormEvent) => {
+  const handleCreateComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("onSubmitComment");
-    if (comment.trim() === "") return;
+    if (commentContent.trim() === "") return;
     try {
       if (user) {
         const newCommentData: NewCommentDTO = {
           feed_id: feedId,
           user_id: user.id,
-          comment_content: comment,
+          comment_content: commentContent,
         };
         await createCommentMutate(newCommentData);
       }
     } catch (error) {
       console.error("Error creating comment:", (error as Error).message);
     }
-    setComment("");
+    setCommentContent("");
+  };
+
+  const handleUpdateComment = async (comment_id: number) => {
+    if (contentEdit.trim() === "") return;
+    try {
+      if (user) {
+        await updateCommentMutate({
+          commentId: comment_id,
+          commentContent: contentEdit,
+        });
+        setCommentEdit("");
+        setContentEdit("");
+      }
+    } catch (error) {
+      console.error("Error creating comment:", (error as Error).message);
+    }
+    setCommentContent("");
+  };
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      await deleteCommentMutate({ commentId });
+      console.log("삭제되었습니다.");
+    } catch (error) {
+      console.error("삭제 중 오류 발생:", error);
+    }
   };
 
   useEffect(() => {
@@ -103,24 +136,74 @@ export default function FeedDetailCard() {
               <div className="flex-1 overflow-y-auto py-3">
                 {commentData.length > 0 ? (
                   commentData.map((comment) => (
-                    <div key={comment.id} className="flex items-start mb-4">
-                      <Image
-                        src={`/images/default-profile.jpg`}
-                        alt="User profile"
-                        width={30}
-                        height={30}
-                        className="rounded-full mr-3"
-                      />
-                      <div>
-                        <p className="text-sm font-semibold">
-                          {comment.user_nickname}
-                        </p>
-                        <p className="text-gray-600 text-sm">
-                          {comment.comment_content}
-                        </p>
-                        <p className="text-gray-400 text-xs">
-                          {getTimeDisplay(comment.created_at)}
-                        </p>
+                    <div className="group relative" key={comment.id}>
+                      <div key={comment.id} className="flex items-start mb-4">
+                        <Image
+                          src={`/images/default-profile.jpg`}
+                          alt="User profile"
+                          width={30}
+                          height={30}
+                          className="rounded-full mr-3"
+                        />
+                        {isCommentEdit === String(comment.id) ? (
+                          <div>
+                            <div>
+                              <div className="flex gap-2">
+                                <span className="text-sm font-semibold">
+                                  {comment.user_nickname}
+                                </span>
+                              </div>
+                              <div className="flex items-center">
+                                <input
+                                  type="text"
+                                  value={contentEdit}
+                                  onChange={(e) =>
+                                    setContentEdit(e.target.value)
+                                  }
+                                  placeholder="댓글을 입력하세요..."
+                                  className="flex-1 p-2 border border-gray-300 rounded-md mr-2 text-sm focus:outline-none focus:border-cyan-600"
+                                />
+                                <button
+                                  onClick={() =>
+                                    handleUpdateComment(comment.id)
+                                  }
+                                  className="px-4 py-2 text-sm text-white bg-cyan-600 rounded-md hover:bg-cyan-700"
+                                >
+                                  수정
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <div>
+                              <div className="flex gap-2">
+                                <span className="text-sm font-semibold">
+                                  {comment.user_nickname}
+                                </span>
+                                <span className="text-gray-600 text-sm">
+                                  {comment.comment_content}
+                                </span>
+                              </div>
+                              <p className="text-gray-400 text-xs">
+                                {getTimeDisplay(comment.created_at)}
+                              </p>
+
+                              {comment.user_id === user?.id && (
+                                <SubMenu
+                                  isComment
+                                  onClickEditButton={() => {
+                                    setContentEdit(comment.comment_content);
+                                    setCommentEdit(String(comment.id));
+                                  }}
+                                  onClickDeleteButton={() =>
+                                    handleDeleteComment(comment.id)
+                                  }
+                                />
+                              )}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))
@@ -133,13 +216,13 @@ export default function FeedDetailCard() {
             <div className="flex items-center mb-3">
               <input
                 type="text"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
+                value={commentContent}
+                onChange={(e) => setCommentContent(e.target.value)}
                 placeholder="댓글을 입력하세요..."
                 className="flex-1 p-2 border border-gray-300 rounded-md mr-2 text-sm focus:outline-none focus:border-cyan-600"
               />
               <button
-                onClick={onSubmitComment}
+                onClick={handleCreateComment}
                 className="px-4 py-2 text-sm text-white bg-cyan-600 rounded-md hover:bg-cyan-700"
               >
                 게시
@@ -153,9 +236,9 @@ export default function FeedDetailCard() {
 
               {data.user_id === user?.id && (
                 <FeedSubMenu
-                  feedId={Number(feedId)}
-                  imagePath={data.feed_image}
                   isTopMenu
+                  feedId={data.id}
+                  imagePath={data.feed_image}
                 />
               )}
             </div>

@@ -1,9 +1,3 @@
-export interface NewCommentDTO {
-  feed_id: string;
-  user_id: string;
-  comment_content: string;
-}
-
 export interface IComment {
   id: number;
   feed_id: string;
@@ -22,4 +16,15 @@ export interface PaginatedCommentsDTO {
   pageSize: number | null;
   hasNextPage: boolean;
   error?: Error;
+}
+export interface NewCommentDTO {
+  feed_id: string;
+  user_id: string;
+  comment_content: string;
+}
+
+export interface UpdateCommentDTO {
+  comment_id?: number;
+  comment_content?: string;
+  updated_at?: string;
 }

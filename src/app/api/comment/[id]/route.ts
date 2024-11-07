@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { NextResponse } from "next/server";
 
 export async function PATCH(
   request: Request,
@@ -7,14 +7,16 @@ export async function PATCH(
 ) {
   const supabase = createClient();
   try {
-    const { content } = await request.json();
+    const commentContent = await request.json();
     const { data, error } = await supabase
       .from("comments")
-      .update({ content, updated_at: new Date().toISOString() })
+      .update({
+        comment_content: commentContent,
+        updated_at: new Date().toISOString(),
+      })
       .eq("id", params.id)
       .select("*")
       .single();
-
     if (error) throw error;
 
     return NextResponse.json(data);

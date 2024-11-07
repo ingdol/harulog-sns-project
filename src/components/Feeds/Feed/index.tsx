@@ -59,12 +59,13 @@ export default function Feed({ feed, user }: FeedProps) {
           <HeartIcon className="w-6 h-6" />
           <p>{feed.like_count || ""}</p>
         </div>
-        <div className="flex items-center gap-1">
-          <Link href={`/feed/${feed.id}`}>
-            <ChatBubbleBottomCenterIcon className="w-6 h-6 hover:text-gray-800" />
-          </Link>
+        <Link
+          href={`/feed/${feed.id}`}
+          className="flex items-center gap-1 hover:text-gray-800"
+        >
+          <ChatBubbleBottomCenterIcon className="w-6 h-6 " />
           <p>{feed.comment_count || ""}</p>
-        </div>
+        </Link>
       </div>
     </div>
   );

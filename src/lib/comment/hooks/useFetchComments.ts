@@ -1,8 +1,8 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { COMMENT_KEY } from "../key";
-import { fetchComments } from "../api";
-import { PaginatedCommentsDTO } from "../types";
 import { COMMENT_PAGE_SIZE } from "@/constants";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { fetchComments } from "../api";
+import { COMMENT_KEY } from "../key";
+import { PaginatedCommentsDTO } from "../types";
 
 interface UseCommentsQueryOptions {
   feedId: string;
