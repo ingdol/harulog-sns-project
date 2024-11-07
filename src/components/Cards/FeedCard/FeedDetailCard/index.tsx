@@ -15,7 +15,7 @@ export default function FeedDetailCard() {
   const params = useParams() as { id: string };
   const feedId = params?.id;
 
-  const { data: feedData } = useFetchFeedDetail(feedId);
+  const { data: feedData } = useFetchFeedDetail(Number(feedId));
 
   return (
     <div className="flex items-center justify-center w-full h-full overflow-y-auto ">
