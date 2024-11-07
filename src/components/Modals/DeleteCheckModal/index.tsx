@@ -1,31 +1,17 @@
 "use client";
 
-import { useDeleteFeed } from "@/lib/feed/hooks";
 import { useEffect, useRef } from "react";
 
 interface DeleteCheckModalProps {
-  feedId: number;
-  imagePath: string;
-  onClose: () => void;
+  onCloseModal: () => void;
+  onClickDelete: () => void;
 }
 
 export default function DeleteCheckModal({
-  feedId,
-  imagePath,
-  onClose,
+  onCloseModal,
+  onClickDelete,
 }: DeleteCheckModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-  const { mutateAsync: deleteFeedMutate } = useDeleteFeed();
-
-  const handleDelete = async () => {
-    try {
-      await deleteFeedMutate({ feedId, imagePath });
-      console.log("삭제되었습니다.");
-      onClose();
-    } catch (error) {
-      console.error("삭제 중 오류 발생:", error);
-    }
-  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,7 +19,7 @@ export default function DeleteCheckModal({
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
-        onClose();
+        onCloseModal();
       }
     };
 
@@ -41,7 +27,7 @@ export default function DeleteCheckModal({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [onClose]);
+  }, [onCloseModal]);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -57,13 +43,13 @@ export default function DeleteCheckModal({
           삭제됩니다.
         </p>
         <button
-          onClick={handleDelete}
+          onClick={onClickDelete}
           className="bg-red-500 text-white py-2 px-4 rounded-full w-full mb-2 hover:bg-red-600"
         >
           삭제
         </button>
         <button
-          onClick={onClose}
+          onClick={onCloseModal}
           className="border border-gray-300 py-2 px-4 rounded-full w-full hover:bg-gray-100"
         >
           취소

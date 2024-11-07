@@ -21,7 +21,7 @@ export default function FeedEditCard() {
 
   useEffect(() => {
     if (id) {
-      loadFeedData(id);
+      loadFeedData(Number(id));
     }
     return () => resetForm();
   }, [id]);
@@ -40,7 +40,7 @@ export default function FeedEditCard() {
           feed_content: content,
         };
         await updateFeedMutate({
-          feedId: id,
+          feedId: Number(id),
           updateFeedData,
           imageFile,
           imagePreview,

@@ -22,7 +22,7 @@ export async function fetchFeeds({
   return response.json();
 }
 
-export async function fetchFeedById(feedId: string): Promise<IFeed> {
+export async function fetchFeedById(feedId: number): Promise<IFeed> {
   const response = await fetch(`/api/feed/${feedId}`);
   if (!response.ok) {
     throw new Error("Failed to fetch feed");
@@ -43,7 +43,7 @@ export async function createFeed(newFeed: NewFeedDTO): Promise<IFeed> {
 }
 
 export async function updateFeed(
-  feedId: string,
+  feedId: number,
   updateData: UpdateFeedDTO
 ): Promise<IFeed> {
   const response = await fetch(`/api/feed/${feedId}`, {
