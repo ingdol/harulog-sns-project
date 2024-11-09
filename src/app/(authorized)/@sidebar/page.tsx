@@ -70,7 +70,11 @@ export default function Sidebar() {
           {menuItems.map((menu) => (
             <Link
               key={menu.label}
-              href={menu.href}
+              href={
+                menu.href === "/profile" && user
+                  ? `/profile/${user.nickname}`
+                  : menu.href
+              }
               className="flex items-center justify-center lg:justify-start gap-4 text-gray-400 py-2 hover:text-cyan-600 active:text-cyan-700 transition-colors"
             >
               {menu.icon}
