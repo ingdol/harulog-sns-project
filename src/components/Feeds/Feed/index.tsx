@@ -19,7 +19,10 @@ export default function Feed({ feed, user }: FeedProps) {
   return (
     <div className="bg-white p-4 w-[24rem] md:w-[28rem] lg:w-[36rem] h-full mx-auto">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center">
+        <Link
+          href={"/profile/" + feed.user_nickname}
+          className="flex items-center"
+        >
           <Image
             src={`/images/default-profile.jpg`}
             alt="User profile"
@@ -34,7 +37,7 @@ export default function Feed({ feed, user }: FeedProps) {
               {getTimeDisplay(feed.created_at)}
             </p>
           </div>
-        </div>
+        </Link>
         {feed.user_id === user?.id && (
           <FeedSubMenu feedId={feed.id} imagePath={feed.feed_image} />
         )}

@@ -34,7 +34,7 @@ export async function GET(
         { status: 500 }
       );
     }
-    return NextResponse.json({ profile: profileData, feeds: feedData });
+    return NextResponse.json({ info: profileData, feeds: feedData });
   } catch (error) {
     console.error("Unexpected error:", error);
     return NextResponse.json(
