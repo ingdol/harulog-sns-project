@@ -1,3 +1,4 @@
+import { FollowButton } from "@/components/Buttons";
 import { IProfile } from "@/lib/profile";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import Image from "next/image";
@@ -32,9 +33,7 @@ export default function ProfileInfo({
           {isOwner ? (
             <div>edit</div>
           ) : (
-            <button className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-1 rounded-md">
-              Following
-            </button>
+            <FollowButton profileId={data?.info?.id} />
           )}
         </div>
         <div className="flex gap-12">
