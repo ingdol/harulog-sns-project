@@ -2,6 +2,7 @@ import { FollowButton } from "@/components/Buttons";
 import { IProfile } from "@/lib/profile";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import Image from "next/image";
+import FollowStats from "../FollowStats";
 
 export default function ProfileInfo({
   nickname,
@@ -38,17 +39,10 @@ export default function ProfileInfo({
         </div>
         <div className="flex gap-12">
           <div>
-            <span className="font-semibold mr-2">{data?.feeds?.length}</span>
-            <span>potos</span>
+            <span className="mr-2">게시글</span>
+            <span className="font-semibold">{data?.feeds?.length}</span>
           </div>
-          <div>
-            <span className="font-semibold mr-2">0</span>
-            <span>followers</span>
-          </div>
-          <div>
-            <span className="font-semibold mr-2">0</span>
-            <span>following</span>
-          </div>
+          <FollowStats profileId={data?.info?.id} />
         </div>
       </div>
     </div>

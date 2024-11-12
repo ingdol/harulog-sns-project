@@ -45,3 +45,11 @@ export async function fetchFollowingStatus(
 
   return response.json();
 }
+
+export async function fetchFollowCounts(
+  profileId: string
+): Promise<{ followerCount: number; followingCount: number }> {
+  const response = await fetch(`/api/follow/count?profile_id=${profileId}`);
+  if (!response.ok) throw new Error("Failed to fetch follow counts");
+  return response.json();
+}
