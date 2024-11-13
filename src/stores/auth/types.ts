@@ -1,4 +1,4 @@
-import { IUser } from "@/lib/auth";
+import { IUser } from "@/services/auth";
 
 export interface AuthStore {
   isLogin: boolean;

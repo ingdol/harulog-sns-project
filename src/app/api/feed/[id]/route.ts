@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
-import { UpdateFeedDTO } from "@/lib/feed";
+import { UpdateFeedDTO } from "@/services/feed";
 
 export async function GET(
   request: Request,

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { FEED_PAGE_SIZE } from "@/constants";
-import { NewFeedDTO } from "@/lib/feed";
+import { NewFeedDTO } from "@/services/feed";
 
 export async function GET(request: Request) {
   const supabase = createClient();

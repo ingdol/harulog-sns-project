@@ -1,4 +1,4 @@
-import { IUser } from "@/lib/auth";
+import { IUser } from "@/services/auth";
 import Image from "next/image";
 
 interface UserInfoProps {

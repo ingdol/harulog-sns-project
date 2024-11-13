@@ -2,7 +2,7 @@ import {
   useAddLike,
   useFetchLikeStatus,
   useRemoveLike,
-} from "@/lib/like/hooks";
+} from "@/services/like/hooks";
 import { HeartIcon as OutlineHeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";

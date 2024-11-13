@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { AuthStore } from "./types";
 import { createClient } from "@/utils/supabase/client";
-import { IUser } from "@/lib/auth";
+import { IUser } from "@/services/auth";
 
 export const useAuthStore = create<AuthStore>((set) => ({
   isLogin: false,
