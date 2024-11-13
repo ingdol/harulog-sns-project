@@ -1,12 +1,12 @@
 "use client";
 
+import { LikeButton } from "@/components/Buttons";
 import { CommentBox } from "@/components/Feeds";
 import { FeedSubMenu } from "@/components/Menus";
 import { useFetchFeedDetail } from "@/lib/feed/hooks";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { getImageUrl } from "@/utils/supabase/storage";
 import { getTimeDisplay } from "@/utils/time";
-import { HeartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
@@ -55,10 +55,10 @@ export default function FeedDetailCard() {
             </div>
             <CommentBox feed={feedData} />
             <div className="flex w-full items-center justify-between border-t pt-2 text-gray-500 md:mb-0 mb-6">
-              <div className="flex items-center gap-1">
-                <HeartIcon className="w-6 h-6" />
-                <p>{feedData.like_count || ""}</p>
-              </div>
+              <LikeButton
+                feedId={feedData.id}
+                initialLikeCount={feedData.like_count}
+              />
 
               {feedData.user_id === user?.id && (
                 <FeedSubMenu

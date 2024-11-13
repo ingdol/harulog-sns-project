@@ -1,14 +1,12 @@
 "use client";
 
+import { LikeButton } from "@/components/Buttons";
 import { FeedSubMenu } from "@/components/Menus";
 import { IUser } from "@/lib/auth";
 import { IFeed } from "@/lib/feed";
 import { getImageUrl } from "@/utils/supabase/storage";
 import { getTimeDisplay } from "@/utils/time";
-import {
-  ChatBubbleBottomCenterIcon,
-  HeartIcon,
-} from "@heroicons/react/24/outline";
+import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -55,10 +53,7 @@ export default function Feed({ feed, user }: FeedProps) {
       )}
       <p className="mb-4">{feed.feed_content}</p>
       <div className="flex gap-2 text-gray-500">
-        <div className="flex items-center gap-1">
-          <HeartIcon className="w-6 h-6" />
-          <p>{feed.like_count || ""}</p>
-        </div>
+        <LikeButton feedId={feed.id} initialLikeCount={feed.like_count} />
         <Link
           href={`/feed/${feed.id}`}
           className="flex items-center gap-1 hover:text-gray-800"
