@@ -1,6 +1,5 @@
-import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 const bucketName = process.env.NEXT_PUBLIC_STORAGE_BUCKET!;
 
@@ -41,16 +40,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    const cookieStore = cookies();
-    const accessToken = cookieStore.get("accessToken")?.value;
-
     const { data, error } = await supabase.storage
       .from(bucketName)
       .upload(file.name, file, {
         upsert: true,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
       });
 
     if (error) throw error;

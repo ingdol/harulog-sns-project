@@ -3,10 +3,9 @@ import { createClient } from "@/utils/supabase/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const followerId = searchParams.get("follower_id");
   const followingId = searchParams.get("following_id");
 
-  if (!followerId || !followingId) {
+  if (!followingId) {
     return NextResponse.json(
       { error: "follower_id와 following_id가 필요합니다." },
       { status: 400 }
@@ -19,7 +18,6 @@ export async function GET(request: Request) {
     const { data, error } = await supabase
       .from("follows")
       .select("id")
-      .eq("follower_id", followerId)
       .eq("following_id", followingId);
 
     if (error) throw error;

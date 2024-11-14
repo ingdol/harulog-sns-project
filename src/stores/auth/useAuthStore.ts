@@ -10,11 +10,13 @@ export const useAuthStore = create<AuthStore>((set) => ({
   checkLoginStatus: async () => {
     const response = await fetch("/api/auth/status");
     const data = await response.json();
+    console.log("checkLoginStatus data:", data);
     if (data.isLogin) {
       try {
         const supabase = createClient();
 
         supabase.auth.onAuthStateChange(async (event, session) => {
+          console.log("session", session);
           if (event === "SIGNED_IN" && session?.user) {
             set({
               user: {
@@ -31,6 +33,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
         });
       } catch (error) {
         console.error("Error checking login status:", error);
+        set({ user: null, isLogin: false });
       }
     }
   },

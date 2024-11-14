@@ -22,10 +22,9 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   const { searchParams } = new URL(request.url);
-  const follower_id = searchParams.get("follower_id");
   const following_id = searchParams.get("following_id");
 
-  if (!follower_id || !following_id) {
+  if (!following_id) {
     return NextResponse.json(
       { error: "필수 파라미터가 누락되었습니다." },
       { status: 400 }
@@ -37,7 +36,6 @@ export async function DELETE(request: Request) {
   const { error } = await supabase
     .from("follows")
     .delete()
-    .eq("follower_id", follower_id)
     .eq("following_id", following_id);
 
   if (error) {

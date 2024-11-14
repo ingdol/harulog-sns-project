@@ -5,14 +5,12 @@ export async function GET(request: Request) {
   const supabase = createClient();
   const { searchParams } = new URL(request.url);
   const feedId = parseInt(searchParams.get("feedId") || "0", 10);
-  const userId = searchParams.get("userId");
 
   try {
     const { data, error } = await supabase
       .from("likes")
       .select("id")
       .eq("feed_id", feedId)
-      .eq("user_id", userId)
       .single();
 
     if (error && error.code !== "PGRST116") throw error;

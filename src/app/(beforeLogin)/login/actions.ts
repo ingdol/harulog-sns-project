@@ -18,7 +18,7 @@ export async function login(formData: FormData) {
 
   if (data?.user) {
     console.log("로그인 성공");
-    console.log(data);
+    console.log(data.session.expires_in);
 
     const cookieStore = cookies();
     cookieStore.set("accessToken", data.session.access_token, {
