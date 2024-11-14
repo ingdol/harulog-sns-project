@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const supabase = createClient();
-  const { feed_id, user_id } = await request.json();
+  const { feed_id } = await request.json();
 
   try {
-    const { error } = await supabase.from("likes").insert({ feed_id, user_id });
+    const { error } = await supabase.from("likes").insert({ feed_id });
 
     if (error) throw error;
 
@@ -21,13 +21,12 @@ export async function DELETE(request: Request) {
   const supabase = createClient();
   const { searchParams } = new URL(request.url);
   const feedId = parseInt(searchParams.get("feedId") || "0", 10);
-  const userId = searchParams.get("userId") || "";
 
   try {
     const { error } = await supabase
       .from("likes")
       .delete()
-      .match({ feed_id: feedId, user_id: userId });
+      .match({ feed_id: feedId });
 
     if (error) throw error;
 

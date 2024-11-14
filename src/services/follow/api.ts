@@ -1,42 +1,38 @@
-export async function followUser(follower_id: string, following_id: string) {
+export async function followUser(following_id: string) {
   const response = await fetch(`/api/follow`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ follower_id, following_id }),
+    body: JSON.stringify({ following_id }),
   });
   if (!response.ok) throw new Error("Failed to follow user");
   return response.json();
 }
 
-export async function unfollowUser(follower_id: string, following_id: string) {
-  const response = await fetch(
-    `/api/follow?follower_id=${follower_id}&following_id=${following_id}`,
-    {
-      method: "DELETE",
-    }
-  );
+export async function unfollowUser(following_id: string) {
+  const response = await fetch(`/api/follow?following_id=${following_id}`, {
+    method: "DELETE",
+  });
   if (!response.ok) throw new Error("Failed to unfollow user");
   return response.json();
 }
 
-export async function fetchFollowing(userId: string) {
-  const response = await fetch(`/api/following?user_id=${userId}`);
+export async function fetchFollowing() {
+  const response = await fetch("/api/following");
   if (!response.ok) throw new Error("Failed to fetch following list");
   return response.json();
 }
 
-export async function fetchFollowers(userId: string) {
-  const response = await fetch(`/api/followers?user_id=${userId}`);
+export async function fetchFollowers() {
+  const response = await fetch("/api/followers");
   if (!response.ok) throw new Error("Failed to fetch followers list");
   return response.json();
 }
 
 export async function fetchFollowingStatus(
-  followerId: string,
   followingId: string
 ): Promise<{ isFollowing: boolean }> {
   const response = await fetch(
-    `/api/follow/status?follower_id=${followerId}&following_id=${followingId}`
+    `/api/follow/status?following_id=${followingId}`
   );
 
   if (!response.ok) {

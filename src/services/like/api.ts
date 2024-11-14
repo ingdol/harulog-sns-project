@@ -1,8 +1,8 @@
-export async function addLike(feedId: number, userId: string) {
+export async function addLike(feedId: number) {
   const response = await fetch(`/api/like`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ feed_id: feedId, user_id: userId }),
+    body: JSON.stringify({ feed_id: feedId }),
   });
   if (!response.ok) {
     throw new Error("Failed to add like");
@@ -10,8 +10,8 @@ export async function addLike(feedId: number, userId: string) {
   return response.json();
 }
 
-export async function removeLike(feedId: number, userId: string) {
-  const response = await fetch(`/api/like?feedId=${feedId}&userId=${userId}`, {
+export async function removeLike(feedId: number) {
+  const response = await fetch(`/api/like?feedId=${feedId}`, {
     method: "DELETE",
   });
   if (!response.ok) {
@@ -21,15 +21,11 @@ export async function removeLike(feedId: number, userId: string) {
 }
 
 export async function fetchLikeStatus(
-  feedId: number,
-  userId: string
+  feedId: number
 ): Promise<{ isLiked: boolean }> {
-  const response = await fetch(
-    `/api/like/status?feedId=${feedId}&userId=${userId}`,
-    {
-      method: "GET",
-    }
-  );
+  const response = await fetch(`/api/like/status?feedId=${feedId}`, {
+    method: "GET",
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch like status");
