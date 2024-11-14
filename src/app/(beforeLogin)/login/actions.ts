@@ -17,9 +17,6 @@ export async function login(formData: FormData) {
   const { data, error } = await supabase.auth.signInWithPassword(signData);
 
   if (data?.user) {
-    console.log("로그인 성공");
-    console.log(data.session.expires_in);
-
     const cookieStore = cookies();
     cookieStore.set("accessToken", data.session.access_token, {
       httpOnly: true,

@@ -1,8 +1,18 @@
 import { updateSession } from "@/utils/supabase/middleware";
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  // update user's auth session
+  const { pathname } = request.nextUrl;
+
+  if (pathname.startsWith("/login") || pathname.startsWith("/signup")) {
+    return NextResponse.next();
+  }
+
+  const accessToken = request.cookies.get("accessToken")?.value;
+  if (!accessToken) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
   return await updateSession(request);
 }
 
