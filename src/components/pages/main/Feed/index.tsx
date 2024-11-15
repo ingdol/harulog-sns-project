@@ -51,6 +51,9 @@ export default function Feed({ feed, user }: FeedProps) {
             height={0}
             sizes="100vw"
             style={{ width: "100%", height: "auto" }}
+            priority
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN0d/evBwADGAFeet3ZoQAAAABJRU5ErkJggg=="
           />
         </div>
       )}
