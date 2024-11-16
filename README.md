@@ -50,8 +50,6 @@ http://localhost:3000/
 
 <img src="https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white">
 
-<br />
-
 <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=netlify&logoColor=white">
 
 <br/>
@@ -90,9 +88,16 @@ http://localhost:3000/
 
 ## ☁ 성능 최적화
 
+- infinite scroll에서 데이터 prefetch로 초기 렌더링 속도 개선
+  - LCP 13.3s -> 3.3s / 성능 점수 24점 -> 61점
+- 이미지 최적화를 통해 이미지 즉시 로드하여 LCP 개선
+  - LCP 2.1s -> 1.3s / CLS 0.262 -> 0.08
+
 ## ☁ 트러블 슈팅
 
 ## ☁ 기술적 의사결정
+
+- parallel routes와 intercepting routes를 활용한 모달 구현으로 자연스러운 UX 구현
 
 <br/>
 
