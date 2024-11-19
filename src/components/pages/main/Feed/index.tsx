@@ -1,17 +1,15 @@
 "use client";
-
+import LikeButton from "@/components/Buttons/LikeButton";
 import { IUser } from "@/services/auth";
-import { IFeed } from "@/services/feed";
-import { getImageUrl } from "@/utils/supabase/storage";
+import { IFeedWithBlurData } from "@/services/feed";
 import { getTimeDisplay } from "@/utils/time";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import FeedSubMenu from "../../feed/FeedSubMenu";
-import LikeButton from "@/components/Buttons/LikeButton";
 
 interface FeedProps {
-  feed: IFeed;
+  feed: IFeedWithBlurData;
   user?: IUser;
 }
 
@@ -45,15 +43,11 @@ export default function Feed({ feed, user }: FeedProps) {
       {feed.feed_image && (
         <div className="mb-4">
           <Image
-            src={getImageUrl(feed.feed_image)}
+            {...feed.blurImg}
             alt="feed image"
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: "100%", height: "auto" }}
             priority
-            // placeholder="blur"
-            // blurDataURL="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN0d/evBwADGAFeet3ZoQAAAABJRU5ErkJggg=="
+            placeholder="blur"
+            blurDataURL={feed.blurDataURL}
           />
         </div>
       )}
