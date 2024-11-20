@@ -37,8 +37,13 @@ export default function FeedList() {
       )}
 
       {feedData.length > 0
-        ? feedData.map((feed: IFeedWithBlurData) => (
-            <Feed key={feed.id} feed={feed} user={user || undefined} />
+        ? feedData.map((feed: IFeedWithBlurData, index: number) => (
+            <Feed
+              key={feed.id}
+              feed={feed}
+              user={user || undefined}
+              index={index}
+            />
           ))
         : !isFetching && !isFetchingNextPage && <EmptyFeed />}
       <div ref={ref}></div>
