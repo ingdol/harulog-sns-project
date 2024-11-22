@@ -50,7 +50,8 @@ export default function Feed({ feed, user, index }: FeedProps) {
             width={0}
             height={0}
             sizes="(max-width: 768px) 24rem, (max-width: 1024px) 28rem, 36rem"
-            style={{ width: "100%", height: "auto" }}
+            // style={{ width: "100%", height: "auto" }}
+            priority
           />
         </div>
       )}
