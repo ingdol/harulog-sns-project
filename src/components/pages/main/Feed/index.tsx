@@ -7,7 +7,6 @@ import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import FeedSubMenu from "../../feed/FeedSubMenu";
-import { getImageUrl } from "@/utils/supabase/storage";
 
 interface FeedProps {
   feed: IFeedWithBlurData;
@@ -45,13 +44,11 @@ export default function Feed({ feed, user, index }: FeedProps) {
       {feed.feed_image && (
         <div className="mb-4">
           <Image
-            src={getImageUrl(feed.feed_image)}
+            {...feed.blurImg}
             alt="feed image"
-            width={0}
-            height={0}
             sizes="(max-width: 768px) 24rem, (max-width: 1024px) 28rem, 36rem"
-            style={{ width: "100%", height: "auto" }}
             priority={index < 3}
+            blurDataURL={feed.blurDataURL}
           />
         </div>
       )}
