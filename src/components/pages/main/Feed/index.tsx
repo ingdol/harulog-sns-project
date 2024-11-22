@@ -6,6 +6,7 @@ import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import FeedSubMenu from "../../feed/FeedSubMenu";
+import { IFeedWithBlurData } from "@/services/feed";
 
 interface FeedProps {
   feed: IFeedWithBlurData;
