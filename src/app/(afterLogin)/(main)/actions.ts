@@ -1,5 +1,5 @@
-import { createClient } from "@/utils/supabase/server";
 import { PaginatedFeedsDTO } from "@/services/feed/types";
+import { createClient } from "@/utils/supabase/server";
 
 interface FetchFeedsParams {
   page: number;
@@ -24,7 +24,7 @@ export async function fetchFeedsDirect({
   }
 
   return {
-    data: data || [],
+    data: data,
     count: count || 0,
     page,
     pageSize,

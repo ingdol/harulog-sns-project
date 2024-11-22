@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
+import sharp from "sharp";
 
 const bucketName = process.env.NEXT_PUBLIC_STORAGE_BUCKET!;
 
@@ -40,10 +41,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    const webpImageBuffer = await sharp(buffer)
+      .webp({ quality: 75 })
+      .toBuffer();
+
+    const fileNameWithoutExt = file.name.split(".").slice(0, -1).join(".");
+    const webpFileName = `${fileNameWithoutExt}.webp`;
+
     const { data, error } = await supabase.storage
       .from(bucketName)
-      .upload(file.name, file, {
+      .upload(webpFileName, webpImageBuffer, {
         upsert: true,
+        contentType: "image/webp",
       });
 
     if (error) throw error;

@@ -36,3 +36,9 @@ export interface UpdateFeedDTO {
   feed_content?: string;
   updated_at?: string;
 }
+
+export interface img {
+  src: string;
+  height: number;
+  width: number;
+}
