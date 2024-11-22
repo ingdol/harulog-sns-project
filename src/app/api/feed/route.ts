@@ -1,9 +1,7 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/utils/supabase/server";
 import { FEED_PAGE_SIZE } from "@/constants";
 import { NewFeedDTO } from "@/services/feed";
-import getBlurDataUrl from "@/utils/getBlurDataUrl";
-import { getImageUrl } from "@/utils/supabase/storage";
+import { createClient } from "@/utils/supabase/server";
+import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const supabase = createClient();
@@ -26,20 +24,8 @@ export async function GET(request: Request) {
 
     const hasNextPage = count ? count > page * pageSize : false;
 
-    const feedsWithBlurData = await Promise.all(
-      (data || []).map(async (feed) => {
-        const { base64, img } = await getBlurDataUrl(
-          getImageUrl(feed.feed_image)
-        );
-        return {
-          ...feed,
-          blurDataURL: base64,
-          blurImg: img,
-        };
-      })
-    );
     return NextResponse.json({
-      data: feedsWithBlurData,
+      data: data,
       count: count || 0,
       page,
       pageSize,

@@ -1,7 +1,7 @@
 "use client";
 import LikeButton from "@/components/Buttons/LikeButton";
 import { IUser } from "@/services/auth";
-import { IFeedWithBlurData } from "@/services/feed";
+import { IFeed } from "@/services/feed";
 import { getTimeDisplay } from "@/utils/time";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import FeedSubMenu from "../../feed/FeedSubMenu";
 import { getImageUrl } from "@/utils/supabase/storage";
 
 interface FeedProps {
-  feed: IFeedWithBlurData;
+  feed: IFeed;
   user?: IUser;
   index: number;
 }
@@ -51,7 +51,7 @@ export default function Feed({ feed, user, index }: FeedProps) {
             height={0}
             sizes="(max-width: 768px) 24rem, (max-width: 1024px) 28rem, 36rem"
             style={{ width: "100%", height: "auto" }}
-            priority={index === 0}
+            priority={index < 3}
           />
         </div>
       )}
