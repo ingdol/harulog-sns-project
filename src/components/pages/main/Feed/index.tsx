@@ -52,7 +52,7 @@ export default function Feed({ feed, user, index }: FeedProps) {
             // sizes="(max-width: 768px) 24rem, (max-width: 1024px) 28rem, 36rem"
             sizes="100vw"
             style={{ width: "100%", height: "auto" }}
-            priority={index === 0}
+            priority={index < 3}
           />
         </div>
       )}
