@@ -1,7 +1,7 @@
 "use client";
 
 import { FEED_PAGE_SIZE } from "@/constants";
-import { IFeedWithBlurData } from "@/services/feed";
+import { IFeed } from "@/services/feed";
 import { useFetchFeeds } from "@/services/feed/hooks";
 import { useAuthStore } from "@/stores/auth/useAuthStore";
 import { CloudIcon } from "@heroicons/react/24/solid";
@@ -37,7 +37,7 @@ export default function FeedList() {
       )}
 
       {feedData.length > 0
-        ? feedData.map((feed: IFeedWithBlurData, index: number) => (
+        ? feedData.map((feed: IFeed, index: number) => (
             <Feed
               key={feed.id}
               feed={feed}

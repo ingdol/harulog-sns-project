@@ -1,7 +1,5 @@
-import { createClient } from "@/utils/supabase/server";
 import { PaginatedFeedsDTO } from "@/services/feed/types";
-import { getImageUrl } from "@/utils/supabase/storage";
-import getBlurDataUrl from "@/utils/getBlurDataUrl";
+import { createClient } from "@/utils/supabase/server";
 
 interface FetchFeedsParams {
   page: number;
@@ -24,21 +22,9 @@ export async function fetchFeedsDirect({
   if (error) {
     throw new Error(`Failed to fetch feeds: ${error.message}`);
   }
-  const feedsWithBlurData = await Promise.all(
-    (data || []).map(async (feed) => {
-      const { base64, img } = await getBlurDataUrl(
-        getImageUrl(feed.feed_image)
-      );
-      return {
-        ...feed,
-        blurDataURL: base64,
-        blurImg: img,
-      };
-    })
-  );
 
   return {
-    data: feedsWithBlurData,
+    data: data,
     count: count || 0,
     page,
     pageSize,
