@@ -11,10 +11,13 @@ export const useFetchFeeds = ({
   pageSize = FEED_PAGE_SIZE,
 }: UseFeedsQueryOptions) => {
   return useInfiniteQuery<PaginatedFeedsDTO, Error>({
-    initialPageParam: 1,
+    initialPageParam: 0,
     queryKey: [FEED_KEY],
     queryFn: ({ pageParam }) =>
       fetchFeeds({ page: pageParam as number, pageSize }),
-    getNextPageParam: (lastPage) => (lastPage.page ? lastPage.page + 1 : null),
+    getNextPageParam: (lastPage) => {
+      const currentPage = lastPage.page ?? 0;
+      return lastPage.hasNextPage ? currentPage + 1 : undefined;
+    },
   });
 };
