@@ -11,13 +11,15 @@ export const useFetchFeeds = ({
   pageSize = FEED_PAGE_SIZE,
 }: UseFeedsQueryOptions) => {
   return useInfiniteQuery<PaginatedFeedsDTO, Error>({
-    initialPageParam: 0,
+    initialPageParam: 1,
     queryKey: [FEED_KEY],
     queryFn: ({ pageParam }) =>
       fetchFeeds({ page: pageParam as number, pageSize }),
-    getNextPageParam: (lastPage) => {
-      const currentPage = lastPage.page ?? 0;
-      return lastPage.hasNextPage ? currentPage + 1 : undefined;
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = allPages.length + 1;
+      return lastPage?.data?.length === 0 || lastPage?.data?.length < pageSize
+        ? undefined
+        : nextPage;
     },
   });
 };
