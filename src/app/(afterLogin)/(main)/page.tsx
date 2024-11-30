@@ -1,23 +1,27 @@
+import { FeedList, FeedTopMenu } from "@/components/pages/main";
+import { FEED_KEY } from "@/services/feed";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { FEED_PAGE_SIZE } from "@/constants";
-import { fetchFeedsDirect } from "./actions";
-import { FEED_KEY } from "@/services/feed";
-import { FeedList, FeedTopMenu } from "@/components/pages/main";
 
 export default async function HomePage() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchInfiniteQuery({
     queryKey: [FEED_KEY],
-    queryFn: ({ pageParam }) =>
-      fetchFeedsDirect({ page: pageParam as number, pageSize: FEED_PAGE_SIZE }),
+    queryFn: async () => {
+      const res = await fetch("http://localhost:3000/api/feed", {
+        cache: "no-store",
+      });
+      if (!res.ok) throw new Error("Failed to fetch initial posts");
+      return await res.json();
+    },
     initialPageParam: 1,
     staleTime: 60 * 1000,
   });
+
   const dehydratedState = dehydrate(queryClient);
   return (
     <div>

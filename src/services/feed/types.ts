@@ -16,7 +16,6 @@ export interface PaginatedFeedsDTO {
   count: number;
   page: number | null;
   pageSize: number | null;
-  hasNextPage: boolean;
   error?: Error;
 }
 

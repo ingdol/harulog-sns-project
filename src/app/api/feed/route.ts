@@ -22,14 +22,11 @@ export async function GET(request: Request) {
 
     if (error) throw error;
 
-    const hasNextPage = count ? count > page * pageSize : false;
-
     return NextResponse.json({
       data: data,
       count: count || 0,
       page,
       pageSize,
-      hasNextPage,
     });
   } catch (error) {
     console.error("Failed to fetch feeds:", error);
