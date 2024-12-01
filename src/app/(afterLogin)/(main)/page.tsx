@@ -1,10 +1,4 @@
 import { FeedList, FeedTopMenu } from "@/components/pages/main";
-import { FEED_KEY } from "@/services/feed";
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
 
 export default async function HomePage() {
   // const queryClient = new QueryClient();
