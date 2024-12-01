@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 
 export const fetchProfile = async ({ user }: { user: User | null }) => {
   const supabase = createClient();
-  console.log("getUserAPI called with user:", user);
 
   try {
     const { data, error, status } = await supabase
@@ -19,11 +18,8 @@ export const fetchProfile = async ({ user }: { user: User | null }) => {
     }
 
     if (data) {
-      console.log("Profile data:", data);
       return data;
     }
-
-    console.log("No profile data found");
     return null;
   } catch (error) {
     console.error("API call error:", error);

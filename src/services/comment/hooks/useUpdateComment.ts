@@ -16,7 +16,6 @@ export const useUpdateComment = () => {
       return updateComment(commentId, commentContent);
     },
     onSuccess: async () => {
-      console.log("comment 업데이트 성공");
       queryClient.invalidateQueries({
         queryKey: [COMMENT_KEY],
       });

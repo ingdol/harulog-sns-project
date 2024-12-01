@@ -1,6 +1,10 @@
 "use client";
 import LikeButton from "@/components/Buttons/LikeButton";
 import { IUser } from "@/services/auth";
+<<<<<<< HEAD
+=======
+import { IFeed } from "@/services/feed";
+>>>>>>> e631e97ed2803ea7a35dbe8bef338eaabbbd6c40
 import { getTimeDisplay } from "@/utils/time";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -9,7 +13,7 @@ import FeedSubMenu from "../../feed/FeedSubMenu";
 import { IFeedWithBlurData } from "@/services/feed";
 
 interface FeedProps {
-  feed: IFeedWithBlurData;
+  feed: IFeed;
   user?: IUser;
   index: number;
 }
@@ -50,10 +54,15 @@ export default function Feed({ feed, user, index }: FeedProps) {
             // width={0}
             // height={0}
             sizes="(max-width: 768px) 24rem, (max-width: 1024px) 28rem, 36rem"
+<<<<<<< HEAD
             // style={{ width: "100%", height: "auto" }}
             priority={index < 3}
             placeholder="blur"
             blurDataURL={feed.blurDataURL}
+=======
+            style={{ width: "100%", height: "auto" }}
+            priority={index < 3}
+>>>>>>> e631e97ed2803ea7a35dbe8bef338eaabbbd6c40
           />
         </div>
       )}

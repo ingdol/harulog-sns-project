@@ -15,6 +15,11 @@ export const useFetchFeeds = ({
     queryKey: [FEED_KEY],
     queryFn: ({ pageParam }) =>
       fetchFeeds({ page: pageParam as number, pageSize }),
-    getNextPageParam: (lastPage) => (lastPage.page ? lastPage.page + 1 : null),
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = allPages.length + 1;
+      return lastPage?.data?.length === 0 || lastPage?.data?.length < pageSize
+        ? undefined
+        : nextPage;
+    },
   });
 };

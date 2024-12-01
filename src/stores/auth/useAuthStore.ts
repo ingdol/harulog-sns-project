@@ -14,7 +14,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
       try {
         const supabase = createClient();
         supabase.auth.onAuthStateChange(async (event, session) => {
-          console.log("session", session);
           if (event === "SIGNED_IN" && session?.user) {
             set({
               user: {
@@ -25,8 +24,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
               },
               isLogin: true,
             });
-          } else {
-            console.log("Logged out or no valid session");
           }
         });
       } catch (error) {

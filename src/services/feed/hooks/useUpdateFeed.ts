@@ -21,7 +21,6 @@ export const useUpdateFeed = () => {
       return updateFeed(feedId, updateFeedData);
     },
     onSuccess: async (data, { imageFile, imagePreview }) => {
-      console.log("feed 업데이트 성공");
       if (imageFile && imagePreview) {
         await deleteFile(imagePreview);
       }

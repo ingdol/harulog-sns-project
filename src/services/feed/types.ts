@@ -12,11 +12,10 @@ export interface IFeed {
 }
 
 export interface PaginatedFeedsDTO {
-  data: IFeedWithBlurData[];
+  data: IFeed[];
   count: number;
   page: number | null;
   pageSize: number | null;
-  hasNextPage: boolean;
   error?: Error;
 }
 
@@ -41,8 +40,4 @@ export interface img {
   src: string;
   height: number;
   width: number;
-}
-export interface IFeedWithBlurData extends IFeed {
-  blurDataURL: string;
-  blurImg: img;
 }
