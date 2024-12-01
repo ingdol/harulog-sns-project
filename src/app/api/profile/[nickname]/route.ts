@@ -7,8 +7,6 @@ export async function GET(
 ) {
   const supabase = createClient();
 
-  console.log("GET /api/profile/[id] called with params:", params);
-
   try {
     const { data: profileData, error: profileError } = await supabase
       .from("profiles")

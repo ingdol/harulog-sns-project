@@ -16,7 +16,6 @@ export async function GET(request: Request) {
     if (error && error.code !== "PGRST116") throw error;
 
     const isLiked = !!data;
-    console.log("isLiked", isLiked);
     return NextResponse.json({ isLiked });
   } catch (error) {
     console.error("Failed to check like status:", error);

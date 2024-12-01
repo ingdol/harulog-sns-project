@@ -12,7 +12,9 @@ export default async function HomePage() {
   await queryClient.prefetchInfiniteQuery({
     queryKey: [FEED_KEY],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/api/feed", {
+      const baseUrl =
+        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+      const res = await fetch(`${baseUrl}/api/feed`, {
         cache: "no-store",
       });
       if (!res.ok) throw new Error("Failed to fetch initial posts");
