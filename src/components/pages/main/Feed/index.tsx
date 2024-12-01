@@ -1,21 +1,21 @@
 "use client";
-
+import LikeButton from "@/components/Buttons/LikeButton";
 import { IUser } from "@/services/auth";
 import { IFeed } from "@/services/feed";
-import { getImageUrl } from "@/utils/supabase/storage";
 import { getTimeDisplay } from "@/utils/time";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import FeedSubMenu from "../../feed/FeedSubMenu";
-import LikeButton from "@/components/Buttons/LikeButton";
+import { getImageUrl } from "@/utils/supabase/storage";
 
 interface FeedProps {
   feed: IFeed;
   user?: IUser;
+  index: number;
 }
 
-export default function Feed({ feed, user }: FeedProps) {
+export default function Feed({ feed, user, index }: FeedProps) {
   return (
     <div className="bg-white p-4 w-[24rem] md:w-[28rem] lg:w-[36rem] h-full mx-auto">
       <div className="flex items-center justify-between mb-4">
@@ -49,11 +49,9 @@ export default function Feed({ feed, user }: FeedProps) {
             alt="feed image"
             width={0}
             height={0}
-            sizes="100vw"
+            sizes="(max-width: 768px) 24rem, (max-width: 1024px) 28rem, 36rem"
             style={{ width: "100%", height: "auto" }}
-            priority
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN0d/evBwADGAFeet3ZoQAAAABJRU5ErkJggg=="
+            priority={index < 3}
           />
         </div>
       )}

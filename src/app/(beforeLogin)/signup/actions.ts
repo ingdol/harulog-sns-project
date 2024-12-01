@@ -23,8 +23,6 @@ export async function signup(formData: FormData) {
   const { data, error } = await supabase.auth.signUp(signupData);
 
   if (data?.session) {
-    console.log(data);
-
     const cookieStore = cookies();
     cookieStore.set("accessToken", data.session.access_token, {
       httpOnly: true,

@@ -37,7 +37,6 @@ export default function FeedSubMenu({
   const handleDeleteFeed = async () => {
     try {
       await deleteFeedMutate({ feedId, imagePath });
-      console.log("삭제되었습니다.");
       handleCloseModal();
     } catch (error) {
       console.error("삭제 중 오류 발생:", error);

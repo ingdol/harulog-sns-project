@@ -79,7 +79,6 @@ export default function CommentBox({ feed }: { feed: IFeed }) {
   const handleDeleteComment = async (commentId: number) => {
     try {
       await deleteCommentMutate({ commentId });
-      console.log("삭제되었습니다.");
     } catch (error) {
       console.error("삭제 중 오류 발생:", error);
     }

@@ -1,7 +1,6 @@
 "use client";
 import {
   ArrowLeftStartOnRectangleIcon,
-  ChatBubbleLeftRightIcon,
   DocumentPlusIcon,
   HomeIcon,
   MagnifyingGlassIcon,
@@ -20,14 +19,14 @@ const menuItems = [
     href: "/",
     icon: <HomeIcon className="w-7 h-7" />,
   },
-  {
-    label: "Messages",
-    href: "/Messages",
-    icon: <ChatBubbleLeftRightIcon className="w-7 h-7" />,
-  },
+  // {
+  //   label: "Messages",
+  //   href: "/Messages",
+  //   icon: <ChatBubbleLeftRightIcon className="w-7 h-7" />,
+  // },
   {
     label: "My Profile",
-    href: "/profile",
+    href: "profile",
     icon: <UserIcon className="w-7 h-7" />,
   },
 ];
@@ -35,7 +34,7 @@ const menuItems = [
 export default function Sidebar() {
   const checkLoginStatus = useAuthStore((state) => state.checkLoginStatus);
   const { user } = useAuthStore();
-  console.log("Sidebar user:", user);
+
   useEffect(() => {
     checkLoginStatus();
   }, [checkLoginStatus]);
@@ -71,7 +70,7 @@ export default function Sidebar() {
             <Link
               key={menu.label}
               href={
-                menu.href === "/profile" && user
+                menu.href === "profile" && user
                   ? `/profile/${user.nickname}`
                   : menu.href
               }

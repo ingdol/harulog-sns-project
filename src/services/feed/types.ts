@@ -16,7 +16,6 @@ export interface PaginatedFeedsDTO {
   count: number;
   page: number | null;
   pageSize: number | null;
-  hasNextPage: boolean;
   error?: Error;
 }
 
@@ -35,4 +34,10 @@ export interface UpdateFeedDTO {
   feed_image?: string;
   feed_content?: string;
   updated_at?: string;
+}
+
+export interface img {
+  src: string;
+  height: number;
+  width: number;
 }
