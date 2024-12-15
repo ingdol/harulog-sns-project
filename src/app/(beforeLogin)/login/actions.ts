@@ -24,12 +24,12 @@ export async function login(formData: FormData) {
       path: "/",
       maxAge: data.session.expires_in,
     });
+    return { success: true };
   }
 
   if (error) {
     console.error("로그인 에러:", error.message);
-    redirect("/error");
-    return;
+    return { success: false, error: error?.message || "로그인 실패" };
   }
 
   revalidatePath("/", "layout");
