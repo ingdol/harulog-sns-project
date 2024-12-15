@@ -24,6 +24,7 @@ export default function LoginPage() {
         setErrorMessage("아이디나 비밀번호를 다시 확인해주세요.");
       }
     } catch (error) {
+      console.error("로그인 에러:", error);
       setIsLoading(false);
       setErrorMessage("로그인 중 문제가 발생했습니다.");
     }
